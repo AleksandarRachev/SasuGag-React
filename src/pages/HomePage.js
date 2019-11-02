@@ -52,9 +52,9 @@ class HomePage extends React.Component {
                     <Link to="/products">Add Koza</Link>
                     <h1>Products page</h1>
                         {this.state.products && this.state.products.map((product, i) =>
-                            <div key={i}>
+                            <div className="product" key={i}>
                                 <h2>{product.name}</h2>
-                                <img src={GlobalVariables.backendUrl+'/products/'+product.uid} width="350"/>
+                                <img className="image" src={GlobalVariables.backendUrl+'/products/'+product.uid} width="350"/>
                             </div>
                         )}
                         <table>

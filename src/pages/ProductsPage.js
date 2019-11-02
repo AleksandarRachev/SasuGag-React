@@ -49,7 +49,7 @@ class ProductsPage extends React.Component {
             <div>
                 {this.state.error && <Error message={this.state.error} />}
                 <Link to="/home">{"< Back to products"}</Link>
-                <form onSubmit={event => event.preventDefault()} className="Form">
+                <form onSubmit={event => event.preventDefault()} className="form">
                     <label>Title </label>
                     <input id="name" onBlur={event => this.setName(event.target.value)}/><br/>
                     <label>Image </label>

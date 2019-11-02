@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import GlobalVariables from '../globalVariables'
 import {
     Link,
 } from "react-router-dom";
@@ -14,7 +15,7 @@ class ProductsPage extends React.Component {
 
     uploadFileToServer = () => {
         this.setState({ ...this.state, error: null })
-        axios.post('http://localhost:9090/products', this.state.data).then(() => {alert("File uploaded successfully")},
+        axios.post(GlobalVariables.backendUrl+'/products', this.state.data).then(() => {alert("File uploaded successfully")},
         error => {
             if(error.response.data.message!=null){
                 this.setState({...this.state, error:"There was an error: " + error.response.data.message})

@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import GlobalVariables from '../globalVariables'
 import {
     Link,
 } from "react-router-dom";
@@ -8,20 +9,35 @@ class HomePage extends React.Component {
 
     state = {
         products: [],
-        asd: true
+        onHomePage: true,
+        page:"1",
+        pages : []
     }
 
     componentDidMount() {
-        this.getProducts("http://10.22.41.101:9090/products?page=1")
+        axios.get(GlobalVariables.backendUrl+"/products/count", {}).then(data => this.setState({ ...this.state, pages: new Array(data.data) }));
+        this.getProducts(GlobalVariables.backendUrl+"/products?page="+this.state.page)
+    }
+
+    componentDidUpdate() {
+        for(let i =0;i < this.state.pages.length/5;i++){
+            this.state.pages[i]=i;
+        }
     }
 
     getProducts = url => {
         axios.get(url, {}).then(data => this.setState({ ...this.state, products: data.data }));
     }
-    
+
+    changePage = page => {
+        this.setState({...this.state, page:page})
+        this.getProducts(GlobalVariables.backendUrl+"/products?page="+page)
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
 
     renderThing = () => {
-        if(this.state.asd === true){
+        if(this.state.onHomePage === true){
             return (
                 <div>
                     <h1>Welcome to koza world.</h1>
@@ -36,18 +52,27 @@ class HomePage extends React.Component {
                     <Link to="/products">Add Koza</Link>
                     <h1>Products page</h1>
                         {this.state.products && this.state.products.map((product, i) =>
-                        <div key={i}>
-                            <h2>{product.name}</h2>
-                            <img src={'http://10.22.41.101:9090/products/'+product.uid} width="350"/>
-                        </div>
-                    )}
+                            <div key={i}>
+                                <h2>{product.name}</h2>
+                                <img src={GlobalVariables.backendUrl+'/products/'+product.uid} width="350"/>
+                            </div>
+                        )}
+                        <table>
+                            <thead>
+                                <tr>
+                                    {this.state.pages && this.state.pages.map((product, i) =>
+                                        <th key={i}><button onClick={this.changePage.bind(this, i+1)}>{i+1}</button></th>
+                                    )}
+                                </tr>
+                            </thead>
+                    </table>
                 </div>
             );
         }
     };
 
     changeRender = () => {
-        this.setState({...this.state, asd:!this.state.asd})
+        this.setState({...this.state, onHomePage:!this.state.onHomePage})
     }
 
     render() {

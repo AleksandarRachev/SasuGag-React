@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Error should render without crashing 1`] = `
+<WithStyles(ForwardRef(Snackbar))
+  anchorOrigin={
+    Object {
+      "horizontal": "center",
+      "vertical": "top",
+    }
+  }
+  autoHideDuration={10000}
+  className="position"
+  onClose={[Function]}
+  open={true}
+>
+  <WithStyles(ForwardRef(SnackbarContent))
+    action={
+      Array [
+        <ForwardRef(WithStyles)
+          aria-label="close"
+          className="btn-msg-close"
+          color="inherit"
+          onClick={[Function]}
+        >
+          <Memo
+            className="icon"
+          />
+        </ForwardRef(WithStyles)>,
+      ]
+    }
+    aria-describedby="client-snackbar"
+    className="error"
+    message={
+      <span
+        className="message"
+        id="client-snackbar"
+      >
+        <Memo
+          className="icon icon-variant"
+        />
+      </span>
+    }
+  />
+</WithStyles(ForwardRef(Snackbar))>
+`;

@@ -48,7 +48,7 @@ class HomePage extends React.Component {
         }
         else {
             return (
-                <div>
+                <div className="App-header">
                     <Link to="/products">Add Koza</Link>
                     <h1>Products page</h1>
                         {this.state.products && this.state.products.map((product, i) =>
@@ -57,7 +57,7 @@ class HomePage extends React.Component {
                                 <img className="image" src={GlobalVariables.backendUrl+'/products/'+product.uid} width="350"/>
                             </div>
                         )}
-                        <table>
+                        <table className="table">
                             <thead>
                                 <tr>
                                     {this.state.pages && this.state.pages.map((product, i) =>

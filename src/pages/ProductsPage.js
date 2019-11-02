@@ -51,9 +51,9 @@ class ProductsPage extends React.Component {
                 <Link to="/home">{"< Back to products"}</Link>
                 <form onSubmit={event => event.preventDefault()} className="form">
                     <label>Title </label>
-                    <input id="name" onBlur={event => this.setName(event.target.value)}/><br/>
+                    <input className="input" id="name" onBlur={event => this.setName(event.target.value)}/><br/>
                     <label>Image </label>
-                    <input id="image" type="file" onChange={this.handleUploadFile} /><br/>
+                    <input className="input" id="image" type="file" onChange={this.handleUploadFile} /><br/>
                     <button onClick={this.uploadFileToServer.bind()}>Upload</button>
                 </form>
             </div>

@@ -35,6 +35,14 @@ class ProductsPage extends React.Component {
         data.append('name', name)
         this.setState({...this.state, data:data})
     }
+
+    setCategory = (category) => {
+        const data = this.state.data==null?new FormData():this.state.data;
+        data.delete('category')
+        data.append('category', category)
+        this.setState({...this.state, data:data})
+        console.log(this.state.data)
+    }
     
 
     handleUploadFile = (event) => {
@@ -50,6 +58,11 @@ class ProductsPage extends React.Component {
                 {this.state.error && <Error message={this.state.error} />}
                 <Link to="/home">{"< Back to products"}</Link>
                 <form onSubmit={event => event.preventDefault()} className="form">
+                    <select className="input" onChange={event => this.setCategory(event.target.value)}>
+                        <option value="" defaultValue="" disabled="disabled"></option>
+                        <option value="Funny">Funny</option>
+                        <option value="Sad">Sad</option>
+                    </select><br/>
                     <label>Title </label>
                     <input className="input" id="name" onBlur={event => this.setName(event.target.value)}/><br/>
                     <label>Image </label>

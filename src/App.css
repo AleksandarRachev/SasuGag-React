@@ -40,7 +40,7 @@
   width: 100%;
   background: #e6e6e6;
   font-family: Montserrat-Bold;
-  font-size: 15px;
+  font-size: 80%;
   line-height: 1.5;
   color: #666;
 }
@@ -53,4 +53,53 @@
   padding-right: 1%;
   margin-top: 1%;
   margin-bottom: 1%;
+}
+
+.sidenav {
+  height: 91%;
+  width: 10%;
+  position: fixed;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  overflow: overlay;
+}
+
+.sidenav::-webkit-scrollbar {
+  width: 10px;
+}
+
+.sidenav::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+.sidenav::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.sidenav a {
+  padding: 10% 25% 10% 10%;
+  text-decoration: none;
+  font-size: 75%;
+  color: #818181;
+  display: block;
+}
+
+.sidenav .asd {
+  background-color: #605f60;
+  color: black;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
 }

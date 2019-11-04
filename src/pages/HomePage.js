@@ -56,7 +56,7 @@ class HomePage extends React.Component {
         if(this.state.onHomePage === true){
             return (
                 <div>
-                    <h1>Welcome to koza world.</h1>
+                    <h1 className='title-home'>Welcome to koza world.</h1>
                     <p>Here you have a wild variery to pick you dream koza</p>
                     <button onClick={this.changeRender.bind()}>Click to shop</button>
                 </div>
@@ -72,22 +72,24 @@ class HomePage extends React.Component {
                             <a key={i} href="#" onClick={this.getProductsFiltered.bind(this, category.name)}>{category.name}</a>)}
                     </div>
                     <div className="App-header">
-                        <h1>Products page</h1>
+                        <h1 className="title-home">Products page</h1>
                             {this.state.products && this.state.products.map((product, i) =>
                                 <div className="product" key={i}>
                                     <h2>{product.name}</h2>
                                     <img className="image" alt={product.name} src={GlobalVariables.backendUrl+'/products/'+product.uid} width="350"/>
                                 </div>
                             )}
-                            <table className="table">
+                            {/* <table className="table">
                                 <thead>
-                                    <tr>
+                                    <tr> */}
+                                    <div className="pages">
                                         {this.state.pages && this.state.pages.map((product, i) =>
-                                            <th key={i}><button onClick={this.changePage.bind(this, i+1)}>{i+1}</button></th>
+                                            <div className="page-button" key={i}><button onClick={this.changePage.bind(this, i+1)}>{i+1}</button></div>
                                         )}
-                                    </tr>
-                                </thead>
-                        </table>
+                                    </div>
+                                    {/* </tr>
+                                </thead> */}
+                        {/* </table> */}
                     </div>
                 </div>
             );

@@ -7,6 +7,10 @@
   color: white;
 }
 
+.title-home{
+  margin-top: 0;
+}
+
 .form {
   background-color: #35323c;
   border-radius: 2%;
@@ -63,7 +67,6 @@
   overflow-x: hidden;
   padding-top: 5%;
   padding-bottom: 5%;
-  overflow: overlay;
 }
 
 .sidenav::-webkit-scrollbar {
@@ -102,4 +105,15 @@
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+}
+
+.pages {
+  display: flex;
+  flex-flow: row;
+  margin-left: 48%;
+}
+
+.page-button {
+  display: flex;
+  padding: 2% 1% 1% 0%;
 }

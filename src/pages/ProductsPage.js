@@ -27,6 +27,7 @@ class ProductsPage extends React.Component {
         this.setState({...this.state, data:null});
         document.getElementById("image").value=null
         document.getElementById("name").value=null
+        document.getElementById("category").value=null
     }
 
     setName = (name) => {
@@ -58,8 +59,9 @@ class ProductsPage extends React.Component {
                 {this.state.error && <Error message={this.state.error} />}
                 <Link to="/home">{"< Back to products"}</Link>
                 <form onSubmit={event => event.preventDefault()} className="form">
-                    <select className="input" onChange={event => this.setCategory(event.target.value)}>
-                        <option value="" defaultValue="" disabled="disabled"></option>
+                    <label>Category</label>
+                    <select id="category" className="input" onChange={event => this.setCategory(event.target.value)}>
+                        <option value="" defaultValue=""></option>
                         <option value="Funny">Funny</option>
                         <option value="Sad">Sad</option>
                     </select><br/>

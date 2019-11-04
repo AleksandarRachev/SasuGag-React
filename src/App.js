@@ -11,8 +11,7 @@ import {
 
 function App() {
   return (
-    <div>
-      <header className="App-header">
+      <div className="App-header">
         <Router>
           <Switch>
             <Route path="/home"><HomePage/></Route>
@@ -20,8 +19,7 @@ function App() {
           </Switch>
           <Redirect from="/" to="/home"></Redirect>
         </Router>
-      </header>
-    </div>
+      </div>
   );
 }
 

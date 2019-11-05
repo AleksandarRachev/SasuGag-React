@@ -1,9 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import GlobalVariables from '../globalVariables'
+import '../css/HomePage.css'
 import {
     Link,
 } from "react-router-dom";
+
+const headers = {
+    'Authorization':'Bearer '+localStorage.getItem("token")
+}
 
 class HomePage extends React.Component {
 
@@ -17,7 +22,9 @@ class HomePage extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(GlobalVariables.backendUrl+"/categories", {}).then(data => this.setState({ ...this.state, categories: data.data }));
+        axios.get(GlobalVariables.backendUrl+"/categories", {
+            headers:headers
+        }).then(data => this.setState({ ...this.state, categories: data.data }));
         this.getProducts(1)
     }
 
@@ -28,15 +35,23 @@ class HomePage extends React.Component {
     }
 
     getProducts = (page) => {
-        axios.get(GlobalVariables.backendUrl+"/products/count", {}).then(data => this.setState({ ...this.state, pages: new Array(data.data) }));
+        axios.get(GlobalVariables.backendUrl+"/products/count", {
+            headers:headers
+        }).then(data => this.setState({ ...this.state, pages: new Array(data.data) }));
         this.setState({...this.state, currentCategory:null})
-        axios.get(GlobalVariables.backendUrl+"/products?page="+page, {}).then(data => this.setState({ ...this.state, products: data.data }));
+        axios.get(GlobalVariables.backendUrl+"/products?page="+page, {
+            headers:headers
+        }).then(data => this.setState({ ...this.state, products: data.data }));
     }
 
     getProductsFiltered = category => {
-        axios.get(GlobalVariables.backendUrl+"/products/count/filter?category="+category, {}).then(data => this.setState({ ...this.state, pages: new Array(data.data) }));
+        axios.get(GlobalVariables.backendUrl+"/products/count/filter?category="+category, {
+            headers:headers
+        }).then(data => this.setState({ ...this.state, pages: new Array(data.data) }));
         this.setState({...this.state, currentCategory:category})
-        axios.get(GlobalVariables.backendUrl+"/products/filter?category="+category, {}).then(data => this.setState({ ...this.state, products: data.data }))
+        axios.get(GlobalVariables.backendUrl+"/products/filter?category="+category, {
+            headers:headers
+        }).then(data => this.setState({ ...this.state, products: data.data }))
     }
 
     changePage = page => {
@@ -46,10 +61,20 @@ class HomePage extends React.Component {
         }
         else {
             axios.get(GlobalVariables.backendUrl+"/products/filter?category="+this.state.currentCategory+"&page="+page,
-             {}).then(data => this.setState({ ...this.state, products: data.data }))
+            {
+                headers:headers
+            }).then(data => this.setState({ ...this.state, products: data.data }))
         }
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
+    }
+
+    saveToLocal = () =>{
+        localStorage.setItem("token", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXNob0BhYnYuYmciLCJyb2xlcyI6WyJST0xFX1VTRVIiXSwiZXhwIjoxNTcyOTc3MDM1LCJpYXQiOjE1NzI5Njk4MzV9.54hyOklxEGnhvt5Un8Hna-LRkNX3EDJ1LuOUNN1F5ycy97KgfiZGvpO-AKDKcZn4NC6Sbcpi27mmQWl9RPt5Gg")
+    }
+
+    saveToLocal2 = () =>{
+        localStorage.removeItem("token")
     }
 
     renderThing = () => {
@@ -59,6 +84,8 @@ class HomePage extends React.Component {
                     <h1 className='title-home'>Welcome to koza world.</h1>
                     <p>Here you have a wild variery to pick you dream koza</p>
                     <button onClick={this.changeRender.bind()}>Click to shop</button>
+                    <br/><button onClick={this.saveToLocal.bind(this)}>LOGGGGG</button>
+                    <br/><button onClick={this.saveToLocal2.bind(this)}>Adasd</button>
                 </div>
             );
         }
@@ -76,20 +103,14 @@ class HomePage extends React.Component {
                             {this.state.products && this.state.products.map((product, i) =>
                                 <div className="product" key={i}>
                                     <h2>{product.name}</h2>
-                                    <img className="image" alt={product.name} src={GlobalVariables.backendUrl+'/products/'+product.uid} width="350"/>
+                                    <img className="image" alt={product.name} src={GlobalVariables.backendUrl+'/products/image/'+product.uid} width="350"/>
                                 </div>
                             )}
-                            {/* <table className="table">
-                                <thead>
-                                    <tr> */}
-                                    <div className="pages">
-                                        {this.state.pages && this.state.pages.map((product, i) =>
-                                            <div className="page-button" key={i}><button onClick={this.changePage.bind(this, i+1)}>{i+1}</button></div>
-                                        )}
-                                    </div>
-                                    {/* </tr>
-                                </thead> */}
-                        {/* </table> */}
+                            {<div className="pages">
+                                {this.state.pages && this.state.pages.map((product, i) =>
+                                    <div className="page-button" key={i}><button onClick={this.changePage.bind(this, i+1)}>{i+1}</button></div>
+                                )}
+                            </div>}
                     </div>
                 </div>
             );

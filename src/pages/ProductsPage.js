@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import '../css/ProductsPage.css'
 import GlobalVariables from '../globalVariables'
 import {
     Link,

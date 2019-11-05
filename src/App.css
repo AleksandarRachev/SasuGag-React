@@ -3,7 +3,7 @@
   min-height: 100vh;
   text-align: center;
   align-items: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(10% + 2vmin);
   color: white;
 }
 
@@ -17,15 +17,6 @@
 
 .regular-navbar-link {
   float: right;
-}
-
-.product {
-  text-align: center;
-  background-color: #18181a;
-  padding-bottom: 10%;
-  border-radius: 3%;
-  margin-right: 30%;
-  margin-left: 30%;
 }
 
 .navbar {

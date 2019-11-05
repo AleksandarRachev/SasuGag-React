@@ -8,15 +8,4 @@ describe('Error', () => {
     const wrapper = shallow(<Error />);
     expect(toJson(wrapper)).toMatchSnapshot();
   });
-
-  // it('should call function handleClose', () => {
-  //     const wrapper = shallow(<Error />);
-  //     const button = wrapper.find('.btn-msg-close');
-  //     let spyHandleClose = jest.spyOn(Error.prototype, 'handleClose');
-  //     button.simulate('click');
-  //     expect(spyHandleClose).toHaveBeenCalled();
-
-  //     // let spySetOpen = jest.spyOn();
-  //     // expect(spyScrollTo).toHaveBeenCalled();
-  //   });
 });

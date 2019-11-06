@@ -1,14 +1,12 @@
 .form {
   background-color: #35323c;
   border-radius: 2%;
-  width: 30%;
   height: auto;
   align-items: left;
   font-size: 85%;
   text-align: center;
-
-  padding: 5% 15% 5% 15%;
-  margin: 10% 20% 0% 22%;
+  padding: 5% 5%;
+  margin: 10% 35% 0% 35%;
 }
 
 .form h2 {

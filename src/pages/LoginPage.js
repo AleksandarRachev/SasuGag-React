@@ -28,6 +28,7 @@ class LoginPage extends Component {
             window.location.href = "/home"
         },
             error => {
+                this.setState({ ...this.state, error: null})
                 if (error.response.data.message != null) {
                     this.setState({ ...this.state, error: "There was an error: " + error.response.data.message })
                 }

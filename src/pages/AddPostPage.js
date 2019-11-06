@@ -12,37 +12,36 @@ const headers = {
 }
 
 class AddPostPage extends React.Component {
+
     state = {
         error: null,
         data: null,
         categories: []
+
     }
 
-    componentDidMount () {
+    componentDidMount() {
         axios.get(GlobalVariables.backendUrl + "/categories", {}).then(data => this.setState({ ...this.state, categories: data.data }));
     }
 
-
     uploadFileToServer = () => {
-        this.state = {
-            data:this.state.data
-        }
         axios.post(GlobalVariables.backendUrl + '/posts', this.state.data, {
             headers: headers
         }).then(() => { alert("File uploaded successfully") },
             error => {
+                this.setState({ ...this.state, error: null})
                 if (error.response.data.message != null) {
                     this.setState({ ...this.state, error: "There was an error: " + error.response.data.message })
                     if (error.response.status === 403) {
-                        window.location.href="/login"
-                    
+                        window.location.href = "/login"
+
                     }
                 }
                 else {
                     this.setState({ ...this.state, error: "Oops there was a problem." })
                 }
-               
-            
+
+
             });
 
         this.setState({ ...this.state, data: null });
@@ -70,7 +69,7 @@ class AddPostPage extends React.Component {
         const data = this.state.data == null ? new FormData() : this.state.data;
         let file = event.target.files[0];
         data.append('file', file);
-        this.setState({ ...this.state, data: data })
+        this.setState({ ...this.state, data: data });
     };
 
     render() {
@@ -83,14 +82,14 @@ class AddPostPage extends React.Component {
                     <label>Category</label>
                     <select id="category" className="input" onChange={event => this.setCategory(event.target.value)}>
                         <option value="" defaultValue=""></option>
-                        {this.state.categories.map((category, i) => 
+                        {this.state.categories.map((category, i) =>
                             <option value={category.name}>{category.name}</option>
                         )}
                     </select><br />
                     <input className="input" id="name" placeholder="Title" onBlur={event => this.setName(event.target.value)} /><br />
                     <label>Image </label>
                     <input className="input-file" id="image" name="image" type="file" onChange={this.handleUploadFile} /><br />
-                    <button className="submit-button" onClick={this.uploadFileToServer.bind()}>Upload</button>
+                    <button className="submit-button" onClick={this.uploadFileToServer.bind(this)}>Upload</button>
                 </form>
             </div>
         );

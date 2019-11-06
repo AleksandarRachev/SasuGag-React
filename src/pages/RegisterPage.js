@@ -34,6 +34,7 @@ class RegisterPage extends Component {
             window.location.href="/login"
         },
             error => {
+                this.setState({ ...this.state, error: null})
                 if (error.response.data.errors != null) {
                     this.setState({ ...this.state, error: "There was an error: " + error.response.data.errors[0].defaultMessage })
                 } else {

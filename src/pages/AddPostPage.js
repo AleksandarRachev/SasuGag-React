@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import '../css/ProductsPage.css'
+import '../css/AddPostPage.css'
 import GlobalVariables from '../globalVariables'
 import {
     Link,
@@ -11,17 +11,23 @@ const headers = {
     'Authorization': 'Bearer ' + localStorage.getItem("token")
 }
 
-class ProductsPage extends React.Component {
+class AddPostPage extends React.Component {
     state = {
         error: null,
-        data: null
+        data: null,
+        categories: []
     }
+
+    componentDidMount () {
+        axios.get(GlobalVariables.backendUrl + "/categories", {}).then(data => this.setState({ ...this.state, categories: data.data }));
+    }
+
 
     uploadFileToServer = () => {
         this.state = {
             data:this.state.data
         }
-        axios.post(GlobalVariables.backendUrl + '/products', this.state.data, {
+        axios.post(GlobalVariables.backendUrl + '/posts', this.state.data, {
             headers: headers
         }).then(() => { alert("File uploaded successfully") },
             error => {
@@ -71,14 +77,15 @@ class ProductsPage extends React.Component {
         return (
             <div>
                 {this.state.error && <Error message={this.state.error} />}
-                <Link to="/home">{"< Back to products"}</Link>
+                <Link to="/home">{"< Back to posts"}</Link>
                 <form onSubmit={event => event.preventDefault()} className="form">
                     <h2>Add post</h2>
                     <label>Category</label>
                     <select id="category" className="input" onChange={event => this.setCategory(event.target.value)}>
                         <option value="" defaultValue=""></option>
-                        <option value="Funny">Funny</option>
-                        <option value="Sad">Sad</option>
+                        {this.state.categories.map((category, i) => 
+                            <option value={category.name}>{category.name}</option>
+                        )}
                     </select><br />
                     <input className="input" id="name" placeholder="Title" onBlur={event => this.setName(event.target.value)} /><br />
                     <label>Image </label>
@@ -90,4 +97,4 @@ class ProductsPage extends React.Component {
     }
 }
 
-export default ProductsPage;
+export default AddPostPage;

@@ -53,9 +53,9 @@ class RegisterPage extends Component {
                 {this.state.error && <Error message={this.state.error} />}
                 <form onSubmit={event => event.preventDefault()} className="form">
                     <h2>Register</h2>
-                    <input className="input" placeholder="Email" required onChange={event => this.setEmail(event.target.value)} />
+                    <input className="input" placeholder="* Email" required onChange={event => this.setEmail(event.target.value)} />
                     <input className="input" placeholder="Username" onChange={event => this.setUsername(event.target.value)} />
-                    <input type="password" className="input" placeholder="Password" required onChange={event => this.setPassword(event.target.value)} />
+                    <input type="password" className="input" placeholder="* Password" required onChange={event => this.setPassword(event.target.value)} />
                     <div className="input-div">
                         <a className="submit-button" onClick={this.registerUser.bind(this)}>Register</a>
                     </div>

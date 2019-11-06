@@ -13,7 +13,7 @@ const headers = {
 class HomePage extends React.Component {
 
     state = {
-        products: [],
+        posts: [],
         onHomePage: true,
         page: "1",
         pages: [],
@@ -22,10 +22,8 @@ class HomePage extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(GlobalVariables.backendUrl + "/categories", {
-            headers: headers
-        }).then(data => this.setState({ ...this.state, categories: data.data }));
-        this.getProducts(1)
+        axios.get(GlobalVariables.backendUrl + "/categories", {}).then(data => this.setState({ ...this.state, categories: data.data }));
+        this.getPosts(1)
     }
 
     componentDidUpdate() {
@@ -34,34 +32,26 @@ class HomePage extends React.Component {
         }
     }
 
-    getProducts = (page) => {
-        axios.get(GlobalVariables.backendUrl + "/products/count", {}).then(data => this.setState({ ...this.state, pages: new Array(data.data) }));
+    getPosts = (page) => {
+        axios.get(GlobalVariables.backendUrl + "/posts/count", {}).then(data => this.setState({ ...this.state, pages: new Array(data.data) }));
         this.setState({ ...this.state, currentCategory: null })
-        axios.get(GlobalVariables.backendUrl + "/products?page=" + page, {
-            headers: headers
-        }).then(data => this.setState({ ...this.state, products: data.data }));
+        axios.get(GlobalVariables.backendUrl + "/posts?page=" + page, {}).then(data => this.setState({ ...this.state, posts: data.data }));
     }
 
-    getProductsFiltered = category => {
-        axios.get(GlobalVariables.backendUrl + "/products/count/filter?category=" + category, {
-            headers: headers
-        }).then(data => this.setState({ ...this.state, pages: new Array(data.data) }));
+    getPostsFiltered = category => {
+        axios.get(GlobalVariables.backendUrl + "/posts/count/filter?category=" + category, {}).then(data => this.setState({ ...this.state, pages: new Array(data.data) }));
         this.setState({ ...this.state, currentCategory: category })
-        axios.get(GlobalVariables.backendUrl + "/products/filter?category=" + category, {
-            headers: headers
-        }).then(data => this.setState({ ...this.state, products: data.data }))
+        axios.get(GlobalVariables.backendUrl + "/posts/filter?category=" + category, {}).then(data => this.setState({ ...this.state, posts: data.data }))
     }
 
     changePage = page => {
         this.setState({ ...this.state, page: page })
         if (this.state.currentCategory == null) {
-            this.getProducts(page)
+            this.getPosts(page)
         }
         else {
-            axios.get(GlobalVariables.backendUrl + "/products/filter?category=" + this.state.currentCategory + "&page=" + page,
-                {
-                    headers: headers
-                }).then(data => this.setState({ ...this.state, products: data.data }))
+            axios.get(GlobalVariables.backendUrl + "/posts/filter?category=" + this.state.currentCategory + "&page=" + page,
+            ).then(data => this.setState({ ...this.state, posts: data.data }))
         }
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
@@ -77,9 +67,8 @@ class HomePage extends React.Component {
         if (this.state.onHomePage === true) {
             return (
                 <div>
-                    <h1 className='title-home'>Welcome to koza world.</h1>
-                    <p>Here you have a wild variery to pick you dream koza</p>
-                    <button onClick={this.changeRender.bind()}>Click to shop</button>
+                    <h1 className='title-home'>Welcome to the magic world world.</h1>
+                    <button onClick={this.changeRender.bind()}>Click to get some free drugs</button>
                 </div>
             );
         }
@@ -87,22 +76,22 @@ class HomePage extends React.Component {
             return (
                 <div>
                     <div className="sidenav">
-                        <Link className="asd" to="/products" onClick={this.checkIfUserLogged.bind(this)}>Add Koza</Link>
-                        <a href="#" onClick={this.getProducts.bind(this, 1)}>All</a>
+                        <Link className="link" to="/post-add" onClick={this.checkIfUserLogged.bind(this)}>Add Post</Link>
+                        <a href="#" onClick={this.getPosts.bind(this, 1)}>All</a>
                         {this.state.categories && this.state.categories.map((category, i) =>
-                            <a key={i} href="#" onClick={this.getProductsFiltered.bind(this, category.name)}>{category.name}</a>)}
+                            <a key={i} href="#" onClick={this.getPostsFiltered.bind(this, category.name)}>{category.name}</a>)}
                     </div>
                     <div className="App-header">
-                        <h1 className="title-home">Products page</h1>
-                        {this.state.products && this.state.products.map((product, i) =>
-                            <div className="product" key={i}>
-                                <h2>{product.name}</h2>
-                                <p>{product.userUsername != null ? "by " + product.userUsername : ""}</p>
-                                <img className="image" alt={product.name} src={GlobalVariables.backendUrl + '/products/image/' + product.uid} width="350" />
+                        <h1 className="title-home">Post page</h1>
+                        {this.state.posts && this.state.posts.map((post, i) =>
+                            <div className="post" key={i}>
+                                <h2>{post.title}</h2>
+                                <p>{post.userUsername != null ? "by " + post.userUsername : ""}</p>
+                                <img className="image" alt={post.title} src={GlobalVariables.backendUrl + '/posts/image/' + post.uid} width="350" />
                             </div>
                         )}
                         {<div className="pages">
-                            {this.state.pages && this.state.pages.map((product, i) =>
+                            {this.state.pages && this.state.pages.map((post, i) =>
                                 <div className="page-button" key={i}><button onClick={this.changePage.bind(this, i + 1)}>{i + 1}</button></div>
                             )}
                         </div>}

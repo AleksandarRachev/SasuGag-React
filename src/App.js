@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.css';
 import HomePage from './pages/HomePage';
-import ProductsPage from './pages/ProductsPage';
+import AddPostPage from './pages/AddPostPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import {
@@ -38,7 +38,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/home"><HomePage /></Route>
-          <Route path="/products"><ProductsPage /></Route>
+          <Route path="/post-add"><AddPostPage /></Route>
           <Route path="/login"><LoginPage /></Route>
           <Route path="/register"><RegisterPage /></Route>
           <Redirect from="/" to="/home"></Redirect>

@@ -1,9 +1,21 @@
 .form {
-    background-color: #35323c;
-    border-radius: 2%;
-    align-items: left;
-    font-size: 85%;
-    text-align: left;
-    padding: 5% 15% 5% 15%;
-    margin: 10% 20% 0% 22%;
-  }
+  background-color: #35323c;
+  border-radius: 2%;
+  align-items: left;
+  font-size: 85%;
+  text-align: center;
+  padding: 5% 15% 5% 15%;
+  margin: 10% 20% 0% 22%;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  background: #35323c;
+  font-family: OCR A Std, monospace;
+  font-size: 100%;
+  line-height: 1.5;
+  color: white;
+  border: none;
+  border-bottom: 2px solid red;
+}

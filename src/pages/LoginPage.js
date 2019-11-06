@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Error from '../Error/Error';
 import axios from 'axios'
 import GlobalVariables from '../globalVariables'
+import '../css/LoginPage.css'
 
 class LoginPage extends Component {
 
@@ -42,11 +43,9 @@ class LoginPage extends Component {
             <div>
                 {this.state.error && <Error message={this.state.error} />}
                 <form onSubmit={event => event.preventDefault()} className="form">
-                    <label>Email</label>
-                    <input className="input" onChange={event => this.setEmail(event.target.value)} /><br />
-                    <label>Password</label>
-                    <input type="password" className="input" onChange={event => this.setPassword(event.target.value)} />
-                    <button onClick={this.loginUser.bind(this)}>Login</button>
+                    <input className="input" placeholder="Email" onChange={event => this.setEmail(event.target.value)} /><br />
+                    <input type="password" placeholder="Password" className="input" onChange={event => this.setPassword(event.target.value)} />
+                    <button className="submit-button" onClick={this.loginUser.bind(this)}>Login</button>
                 </form>
             </div>
         );

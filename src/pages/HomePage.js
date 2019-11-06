@@ -88,7 +88,7 @@ class HomePage extends React.Component {
                 <div>
                     <div className="sidenav">
                         <Link className="asd" to="/products" onClick={this.checkIfUserLogged.bind(this)}>Add Koza</Link>
-                        <a hreg="#" onClick={this.getProducts.bind(this, 1)}>All</a>
+                        <a href="#" onClick={this.getProducts.bind(this, 1)}>All</a>
                         {this.state.categories && this.state.categories.map((category, i) =>
                             <a key={i} href="#" onClick={this.getProductsFiltered.bind(this, category.name)}>{category.name}</a>)}
                     </div>

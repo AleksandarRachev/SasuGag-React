@@ -79,7 +79,7 @@ class ProductsPage extends React.Component {
                     <input className="input" id="name" onBlur={event => this.setName(event.target.value)} /><br />
                     <label>Image </label>
                     <input className="input" id="image" type="file" onChange={this.handleUploadFile} /><br />
-                    <button onClick={this.uploadFileToServer.bind()}>Upload</button>
+                    <button className="submit-button" onClick={this.uploadFileToServer.bind()}>Upload</button>
                 </form>
             </div>
         );

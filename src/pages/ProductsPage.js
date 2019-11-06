@@ -75,10 +75,9 @@ class ProductsPage extends React.Component {
                         <option value="Funny">Funny</option>
                         <option value="Sad">Sad</option>
                     </select><br />
-                    <label>Title </label>
-                    <input className="input" id="name" onBlur={event => this.setName(event.target.value)} /><br />
+                    <input className="input" id="name" placeholder="Title" onBlur={event => this.setName(event.target.value)} /><br />
                     <label>Image </label>
-                    <input className="input" id="image" type="file" onChange={this.handleUploadFile} /><br />
+                    <input className="input-file" id="image" name="image" type="file" onChange={this.handleUploadFile} /><br />
                     <button className="submit-button" onClick={this.uploadFileToServer.bind()}>Upload</button>
                 </form>
             </div>

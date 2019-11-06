@@ -19,3 +19,13 @@
   border: none;
   border-bottom: 2px solid red;
 }
+
+.input-file {
+  border: 2px solid red;
+  color: gray;
+  background-color: #35323c;
+  padding: 2% 4%;
+  border-radius: 8px;
+  font-size: 77%;
+  font-weight: bold;
+}

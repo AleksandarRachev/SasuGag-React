@@ -3,6 +3,7 @@ import './App.css';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import {
   BrowserRouter as Router,
   Switch,
@@ -39,6 +40,7 @@ function App() {
           <Route path="/home"><HomePage /></Route>
           <Route path="/products"><ProductsPage /></Route>
           <Route path="/login"><LoginPage /></Route>
+          <Route path="/register"><RegisterPage /></Route>
           <Redirect from="/" to="/home"></Redirect>
         </Switch>
       </Router>

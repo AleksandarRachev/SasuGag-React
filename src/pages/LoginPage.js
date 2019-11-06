@@ -43,9 +43,13 @@ class LoginPage extends Component {
             <div>
                 {this.state.error && <Error message={this.state.error} />}
                 <form onSubmit={event => event.preventDefault()} className="form">
+                    <h2>Login</h2>
                     <input className="input" placeholder="Email" onChange={event => this.setEmail(event.target.value)} /><br />
                     <input type="password" placeholder="Password" className="input" onChange={event => this.setPassword(event.target.value)} />
-                    <button className="submit-button" onClick={this.loginUser.bind(this)}>Login</button>
+                    <div className="link-div">
+                        <a className="submit-button" onClick={this.loginUser.bind(this)}>Login</a>
+                        <a className="submit-button" href="/register">Register</a>
+                    </div>
                 </form>
             </div>
         );

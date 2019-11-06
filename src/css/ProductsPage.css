@@ -1,11 +1,18 @@
 .form {
   background-color: #35323c;
   border-radius: 2%;
+  width: 30%;
+  height: auto;
   align-items: left;
   font-size: 85%;
   text-align: center;
+
   padding: 5% 15% 5% 15%;
   margin: 10% 20% 0% 22%;
+}
+
+.form h2 {
+  margin-top: 0%;
 }
 
 .input {
@@ -18,6 +25,7 @@
   color: white;
   border: none;
   border-bottom: 2px solid red;
+  margin-bottom: 5%;
 }
 
 .input-file {

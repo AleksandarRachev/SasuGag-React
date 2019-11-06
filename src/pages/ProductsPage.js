@@ -18,7 +18,9 @@ class ProductsPage extends React.Component {
     }
 
     uploadFileToServer = () => {
-        console.log("state error "+this.state.error)
+        this.state = {
+            data:this.state.data
+        }
         axios.post(GlobalVariables.backendUrl + '/products', this.state.data, {
             headers: headers
         }).then(() => { alert("File uploaded successfully") },
@@ -26,15 +28,17 @@ class ProductsPage extends React.Component {
                 if (error.response.data.message != null) {
                     this.setState({ ...this.state, error: "There was an error: " + error.response.data.message })
                     if (error.response.status === 403) {
-                        window.location.href = "/login"
+                        window.location.href="/login"
+                    
                     }
                 }
                 else {
                     this.setState({ ...this.state, error: "Oops there was a problem." })
                 }
+               
+            
             });
 
-            this.setState({...this.state, error:""});
         this.setState({ ...this.state, data: null });
         document.getElementById("image").value = null
         document.getElementById("name").value = null
@@ -69,6 +73,7 @@ class ProductsPage extends React.Component {
                 {this.state.error && <Error message={this.state.error} />}
                 <Link to="/home">{"< Back to products"}</Link>
                 <form onSubmit={event => event.preventDefault()} className="form">
+                    <h2>Add post</h2>
                     <label>Category</label>
                     <select id="category" className="input" onChange={event => this.setCategory(event.target.value)}>
                         <option value="" defaultValue=""></option>

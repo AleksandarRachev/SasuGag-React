@@ -11,28 +11,30 @@ import {
   Redirect
 } from "react-router-dom";
 
-function logout() {
-  localStorage.clear()
-}
+class App extends React.Component {
 
-function renderLogin() {
-  if (localStorage.getItem("token") == null) {
-    return (
-      <a className="regular-navbar-link" href="/login">Login</a>
-    );
-  } else {
-    return (
-      <a className="regular-navbar-link" onClick={logout.bind(this)} href=".">Logout</a>
-    );
+  logout = () => {
+    localStorage.clear();
   }
-}
 
-function App() {
+  renderLogin = () => {
+      if (localStorage.getItem("LOGIN") == null) {
+        return (
+          <a className="regular-navbar-link" href="/login">Login</a>
+        );
+      } else {
+        return (
+          <a className="regular-navbar-link" onClick={this.logout.bind(this)} href=".">Logout</a>
+        );
+      }
+    }
+
+  render(){
   return (
     <div className="App-header">
       <div className="navbar">
         <a className="home-link" href="/">Home</a>
-        {renderLogin()}
+        {this.renderLogin()}
         <a className="regular-navbar-link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Never</a>
       </div>
       <Router>
@@ -46,6 +48,7 @@ function App() {
       </Router>
     </div>
   );
+  }
 }
 
 export default App;

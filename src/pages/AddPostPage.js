@@ -46,14 +46,16 @@ class AddPostPage extends React.Component {
 
         this.setState({ ...this.state, data: null });
         document.getElementById("image").value = null
-        document.getElementById("name").value = null
+        document.getElementById("title").value = null
         document.getElementById("category").value = null
     }
 
-    setName = (name) => {
+    setTitle = (title) => {
+        const chunks = title.match(/.{1,18}/g);
+        title = chunks.join(" ");
         const data = this.state.data == null ? new FormData() : this.state.data;
-        data.delete('name')
-        data.append('name', name)
+        data.delete('title')
+        data.append('title', title)
         this.setState({ ...this.state, data: data })
     }
 
@@ -86,7 +88,7 @@ class AddPostPage extends React.Component {
                             <option value={category.name}>{category.name}</option>
                         )}
                     </select><br />
-                    <input className="input" id="name" placeholder="Title" onBlur={event => this.setName(event.target.value)} /><br />
+                    <input className="input" id="title" placeholder="Title" onBlur={event => this.setTitle(event.target.value)} /><br />
                     <label>Image </label>
                     <input className="input-file" id="image" name="image" type="file" onChange={this.handleUploadFile} /><br />
                     <button className="submit-button" onClick={this.uploadFileToServer.bind(this)}>Upload</button>

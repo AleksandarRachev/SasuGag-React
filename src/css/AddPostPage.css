@@ -32,6 +32,6 @@
   background-color: #35323c;
   padding: 2% 4%;
   border-radius: 8px;
-  font-size: 77%;
+  font-size: calc(7% + 1vmin);
   font-weight: bold;
 }

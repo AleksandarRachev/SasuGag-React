@@ -12,7 +12,8 @@ function userLogin (email, password) {
         return loginService.login(email, password).then(response => {
             persistState("LOGIN", {token: response.token, user: response.userResponse});
             return dispatch (
-                userLoginSuccess({token: response.token, user: response.userResponse})
+                userLoginSuccess({token: response.token, user: response.userResponse}),
+                window.location.href="/home"
             );
         }, error => dispatch(userLoginFailure(error.response.data.message))
         );

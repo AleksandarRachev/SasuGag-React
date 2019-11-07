@@ -11,34 +11,22 @@ import {
   Redirect
 } from "react-router-dom";
 
-// function logout() {
-//   localStorage.clear()
-// }
-
-// function renderLogin() {
-//   if (localStorage.getItem("token") == null) {
-//     return (
-//       <a className="regular-navbar-link" href="/login">Login</a>
-//     );
-//   } else {
-//     return (
-//       <a className="regular-navbar-link" onClick={logout.bind(this)} href=".">Logout</a>
-//     );
-//   }
-// }
-
 class App extends React.Component {
 
+  logout = () => {
+    localStorage.clear();
+  }
+
   renderLogin = () => {
-      // if (localStorage.getItem("token") == null) {
+      if (localStorage.getItem("LOGIN") == null) {
         return (
           <a className="regular-navbar-link" href="/login">Login</a>
         );
-      // } else {
-      //   return (
-      //     <a className="regular-navbar-link" onClick={logout.bind(this)} href=".">Logout</a>
-      //   );
-      // }
+      } else {
+        return (
+          <a className="regular-navbar-link" onClick={this.logout.bind(this)} href=".">Logout</a>
+        );
+      }
     }
 
   render(){

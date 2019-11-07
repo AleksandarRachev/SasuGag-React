@@ -11,28 +11,42 @@ import {
   Redirect
 } from "react-router-dom";
 
-function logout() {
-  localStorage.clear()
-}
+// function logout() {
+//   localStorage.clear()
+// }
 
-function renderLogin() {
-  if (localStorage.getItem("token") == null) {
-    return (
-      <a className="regular-navbar-link" href="/login">Login</a>
-    );
-  } else {
-    return (
-      <a className="regular-navbar-link" onClick={logout.bind(this)} href=".">Logout</a>
-    );
-  }
-}
+// function renderLogin() {
+//   if (localStorage.getItem("token") == null) {
+//     return (
+//       <a className="regular-navbar-link" href="/login">Login</a>
+//     );
+//   } else {
+//     return (
+//       <a className="regular-navbar-link" onClick={logout.bind(this)} href=".">Logout</a>
+//     );
+//   }
+// }
 
-function App() {
+class App extends React.Component {
+
+  renderLogin = () => {
+      // if (localStorage.getItem("token") == null) {
+        return (
+          <a className="regular-navbar-link" href="/login">Login</a>
+        );
+      // } else {
+      //   return (
+      //     <a className="regular-navbar-link" onClick={logout.bind(this)} href=".">Logout</a>
+      //   );
+      // }
+    }
+
+  render(){
   return (
     <div className="App-header">
       <div className="navbar">
         <a className="home-link" href="/">Home</a>
-        {renderLogin()}
+        {this.renderLogin()}
         <a className="regular-navbar-link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Never</a>
       </div>
       <Router>
@@ -46,6 +60,7 @@ function App() {
       </Router>
     </div>
   );
+  }
 }
 
 export default App;

@@ -80,6 +80,9 @@ class HomePage extends React.Component {
                         <a href="#" onClick={this.getPosts.bind(this, 1)}>All</a>
                         {this.state.categories && this.state.categories.map((category, i) =>
                             <a key={i} href="#" onClick={this.getPostsFiltered.bind(this, category.name)}>{category.name}</a>)}
+                            <video>
+                                <source src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" type="video.mp4"/>
+                            </video>
                     </div>
                     <div className="App-header">
                         <h1 className="title-home">Post page</h1>

@@ -19,13 +19,13 @@ class HomePage extends React.Component {
         onHomePage: true,
         page: "1",
         pages: [],
-        categories: [],
         currentCategory: null
     }
 
     componentDidMount() {
         // axios.get(GlobalVariables.backendUrl + "/categories", {}).then(data => this.setState({ ...this.state, categories: data.data }));
-        this.props.getPosts(1)
+        this.props.getPosts(1);
+        this.props.getCategories();
     }
 
     // componentDidUpdate() {
@@ -40,11 +40,11 @@ class HomePage extends React.Component {
     //     axios.get(GlobalVariables.backendUrl + "/posts?page=" + page, {}).then(data => this.setState({ ...this.state, posts: data.data }));
     // }
 
-    // getPostsFiltered = category => {
-    //     axios.get(GlobalVariables.backendUrl + "/posts/count/filter?category=" + category, {}).then(data => this.setState({ ...this.state, pages: new Array(data.data) }));
-    //     this.setState({ ...this.state, currentCategory: category })
-    //     axios.get(GlobalVariables.backendUrl + "/posts/filter?category=" + category, {}).then(data => this.setState({ ...this.state, posts: data.data }))
-    // }
+    getPostsFiltered = category => {
+        axios.get(GlobalVariables.backendUrl + "/posts/count/filter?category=" + category, {}).then(data => this.setState({ ...this.state, pages: new Array(data.data) }));
+        this.setState({ ...this.state, currentCategory: category })
+        axios.get(GlobalVariables.backendUrl + "/posts/filter?category=" + category, {}).then(data => this.setState({ ...this.state, posts: data.data }))
+    }
 
     // changePage = page => {
     //     this.setState({ ...this.state, page: page })
@@ -59,11 +59,11 @@ class HomePage extends React.Component {
     //     document.documentElement.scrollTop = 0;
     // }
 
-    // checkIfUserLogged = () => {
-    //     if (localStorage.getItem("token") == null) {
-    //         window.location.href = "/login"
-    //     }
-    // }
+    checkIfUserLogged = () => {
+        if (localStorage.getItem("LOGIN") == null) {
+            window.location.href = "/login"
+        }
+    }
 
     renderThing = () => {
         if (this.state.onHomePage === true) {
@@ -78,19 +78,18 @@ class HomePage extends React.Component {
             return (
                 <div>
                     <div className="sidenav">
-                        {/* <Link className="link" to="/post-add" onClick={this.checkIfUserLogged.bind(this)}>Add Post</Link> */}
-                        {/* <a href="#" onClick={this.getPosts.bind(this, 1)}>All</a> */}
-                        {/* {this.state.categories && this.state.categories.map((category, i) =>
-                            <a key={i} href="#" onClick={this.getPostsFiltered.bind(this, category.name)}>{category.name}</a>)} */}
+                        <Link className="link" to="/post-add" onClick={this.checkIfUserLogged.bind(this)}>Add Post</Link>
+                        <a href="#" onClick={this.props.getPosts.bind(this,1)}>All</a>
+                        {this.props.categories && this.props.categories.map((category, i) =>
+                            <a key={i} href="#" onClick={this.getPostsFiltered.bind(this, category.name)}>{category.name}</a>)}
                     </div>
                     <div className="App-header">
                         <h1 className="title-home">Post page</h1>
-                        {console.log(this.props.posts)}
                         {this.props.posts && this.props.posts.map((post, i) =>
                             <div className="post" key={i}>
                                 <h2>{post.title}</h2>
                                 <p>{post.userUsername != null ? "by " + post.userUsername : ""}</p>
-                                {/* <img className="image" alt={post.title} src={GlobalVariables.backendUrl + '/posts/image/' + post.uid} width="350" /> */}
+                                <img className="image" alt={post.title} src={GlobalVariables.backendUrl + '/posts/image/' + post.uid} width="350" />
                             </div>
                         )}
                         {/* {<div className="pages">
@@ -123,12 +122,14 @@ const mapStateToProps = state => {
     return state => ({
         isLoading:state.getPosts.isLoading,
         error:state.getPosts.error,
-        posts:state.getPosts.posts || []
+        posts:state.getPosts.posts,
+        categories:state.getPosts.categories
     });
 }
 
 const mapDispatchToProps = dispatch => {
-    return {getPosts: (page) => dispatch(getPostsActions.getPosts(page))};
+    return {getPosts: (page) => dispatch(getPostsActions.getPosts(page)),
+    getCategories: () => dispatch(getPostsActions.getCategories())};
 };
 
 export default connect (mapStateToProps, mapDispatchToProps) (withRouter(HomePage));

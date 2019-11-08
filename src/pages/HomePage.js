@@ -16,7 +16,6 @@ const headers = {
 class HomePage extends React.Component {
 
     state = {
-        posts: [],
         onHomePage: true,
         page: "1",
         pages: [],
@@ -26,8 +25,7 @@ class HomePage extends React.Component {
 
     componentDidMount() {
         // axios.get(GlobalVariables.backendUrl + "/categories", {}).then(data => this.setState({ ...this.state, categories: data.data }));
-        // this.getPosts(1)
-        // this.props.posts.bind(this,1)
+        this.props.getPosts(1)
     }
 
     // componentDidUpdate() {
@@ -73,7 +71,6 @@ class HomePage extends React.Component {
                 <div>
                     <h1 className='title-home'>Welcome to the magic world world.</h1>
                     <button onClick={this.changeRender.bind()}>Click to get some free drugs</button>
-                        <button onClick={this.props.posts.bind(this,1)}>asdasd</button>
                 </div>
             );
         }
@@ -109,7 +106,7 @@ class HomePage extends React.Component {
 
     changeRender = () => {
         this.setState({ ...this.state, onHomePage: !this.state.onHomePage })
-    }
+    };
 
     render() {
         return (
@@ -120,18 +117,18 @@ class HomePage extends React.Component {
             </div>
         )
     };
-}
+};
 
 const mapStateToProps = state => {
     return state => ({
         isLoading:state.getPosts.isLoading,
         error:state.getPosts.error,
-        posts:state.getPosts.posts
+        posts:state.getPosts.posts || []
     });
 }
 
 const mapDispatchToProps = dispatch => {
-    return {posts: (page) => dispatch(getPostsActions.posts(page))};
+    return {getPosts: (page) => dispatch(getPostsActions.getPosts(page))};
 };
 
 export default connect (mapStateToProps, mapDispatchToProps) (withRouter(HomePage));

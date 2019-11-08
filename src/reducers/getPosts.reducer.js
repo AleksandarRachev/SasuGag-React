@@ -14,12 +14,15 @@ export function getPosts(state = {
             };
         
         case getPostsConstants.GET_POSTS_REQUEST_SUCCESS:
+            
+                console.log(action.data.posts)
                 return {
                     ...state,
                     error: null,
                     isLoading: false,
-                    posts: action.data
+                    posts: action.data.posts
                 };
+                
 
         case getPostsConstants.GET_POSTS_REQUEST_FAILURE:
                 return {

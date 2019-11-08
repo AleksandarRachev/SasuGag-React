@@ -5,11 +5,10 @@ const baseUrl = "http://localhost:9090";
 function getPosts(page) {
     const requestOptions = {
         method:"GET",
-        headers: {},
-        data: {}
+        headers: {}
     }
 
-    return app.request(`${baseUrl}/posts?page=1`, requestOptions);
+    return app.request(`${baseUrl}/posts?page=${page}`, requestOptions);
 }
 
 export const getPostsService = {

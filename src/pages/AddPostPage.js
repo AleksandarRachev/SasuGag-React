@@ -27,9 +27,16 @@ class AddPostPage extends React.Component {
     uploadFileToServer = () => {
         axios.post(GlobalVariables.backendUrl + '/posts', this.state.data, {
             headers: headers
-        }).then(() => { alert("File uploaded successfully") },
+        }).then(() => {
+            alert("File uploaded successfully")
+
+            this.setState({ ...this.state, data: null });
+            document.getElementById("image").value = null
+            document.getElementById("title").value = null
+            document.getElementById("category").value = null
+        },
             error => {
-                this.setState({ ...this.state, error: null})
+                this.setState({ ...this.state, error: null })
                 if (error.response.data.message != null) {
                     this.setState({ ...this.state, error: "There was an error: " + error.response.data.message })
                     if (error.response.status === 403) {
@@ -40,14 +47,7 @@ class AddPostPage extends React.Component {
                 else {
                     this.setState({ ...this.state, error: "Oops there was a problem." })
                 }
-
-
             });
-
-        this.setState({ ...this.state, data: null });
-        document.getElementById("image").value = null
-        document.getElementById("title").value = null
-        document.getElementById("category").value = null
     }
 
     setTitle = (title) => {

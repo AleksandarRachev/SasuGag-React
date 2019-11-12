@@ -14,34 +14,40 @@ class HomePage extends React.Component {
 
     state = {
         posts: [],
-        onHomePage: true,
-        page: "1",
-        pages: [],
+        page: 0,
         categories: [],
         currentCategory: null
     }
 
     componentDidMount() {
+        window.addEventListener('scroll', this.listenToScroll)
         axios.get(GlobalVariables.backendUrl + "/categories", {}).then(data => this.setState({ ...this.state, categories: data.data }));
-        this.getPosts(1)
+        this.getPosts(0)
     }
 
     componentDidUpdate() {
-        for (let i = 0; i < this.state.pages.length / 5; i++) {
-            this.state.pages[i] = i;
+        window.addEventListener('scroll', this.listenToScroll)
+    }
+
+    listenToScroll = () => {
+        var limit = Math.max(document.body.scrollHeight, document.body.offsetHeight,
+            document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
+
+        if (window.scrollY > (limit - 1000)) {
+            this.changePage(this.state.page + 1);
         }
     }
 
     getPosts = (page) => {
         axios.get(GlobalVariables.backendUrl + "/posts/count", {}).then(data => this.setState({ ...this.state, pages: new Array(data.data) }));
         this.setState({ ...this.state, currentCategory: null })
-        axios.get(GlobalVariables.backendUrl + "/posts?page=" + page, {}).then(data => this.setState({ ...this.state, posts: data.data }));
+        axios.get(GlobalVariables.backendUrl + "/posts?page=" + page, {}).then(data => this.setState({ ...this.state, posts: this.state.posts.concat(data.data) }));
     }
 
     getPostsFiltered = category => {
+        this.resetPosts(category);
         axios.get(GlobalVariables.backendUrl + "/posts/count/filter?category=" + category, {}).then(data => this.setState({ ...this.state, pages: new Array(data.data) }));
-        this.setState({ ...this.state, currentCategory: category })
-        axios.get(GlobalVariables.backendUrl + "/posts/filter?category=" + category, {}).then(data => this.setState({ ...this.state, posts: data.data }))
+        axios.get(GlobalVariables.backendUrl + "/posts/filter?category=" + category +"&page=" + 0, {}).then(data => this.setState({ ...this.state, posts: data.data }))
     }
 
     changePage = page => {
@@ -51,10 +57,8 @@ class HomePage extends React.Component {
         }
         else {
             axios.get(GlobalVariables.backendUrl + "/posts/filter?category=" + this.state.currentCategory + "&page=" + page,
-            ).then(data => this.setState({ ...this.state, posts: data.data }))
+            ).then(data => this.setState({ ...this.state, posts: this.state.posts.concat(data.data) }))
         }
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
     }
 
     checkIfUserLogged = () => {
@@ -63,56 +67,38 @@ class HomePage extends React.Component {
         }
     }
 
-    renderThing = () => {
-        if (this.state.onHomePage === true) {
-            return (
-                <div>
-                    <h1 className='title-home'>Welcome to the magic world world.</h1>
-                    <button onClick={this.changeRender.bind()}>Click to get some free drugs</button>
-                </div>
-            );
+    resetPosts = (category) => {
+        this.state = {
+            posts: [],
+            page: 0,
+            pages: this.state.pages,
+            categories: this.state.categories,
+            currentCategory: category
         }
-        else {
-            return (
-                <div>
-                    <div className="sidenav">
-                        <Link className="link" to="/post-add" onClick={this.checkIfUserLogged.bind(this)}>Add Post</Link>
-                        <a href="#" onClick={this.getPosts.bind(this, 1)}>All</a>
-                        {this.state.categories && this.state.categories.map((category, i) =>
-                            <a key={i} href="#" onClick={this.getPostsFiltered.bind(this, category.name)}>{category.name}</a>)}
-                    </div>
-                    <div className="App-header">
-                        <h1 className="title-home">Post page</h1>
-                        {this.state.posts && this.state.posts.map((post, i) =>
-                            <div className="post" key={i}>
-                                <h2>{post.title}</h2>
-                                <p>{post.userUsername != null ? "by " + post.userUsername : ""}</p>
-                                <img className="image" alt={post.title} src={GlobalVariables.backendUrl + '/posts/image/' + post.uid} width="350" />
-                            </div>
-                        )}
-                        {<div className="pages">
-                            {this.state.pages && this.state.pages.map((post, i) =>
-                                <div className="page-button" key={i}><button onClick={this.changePage.bind(this, i + 1)}>{i + 1}</button></div>
-                            )}
-                        </div>}
-                    </div>
-                </div>
-            );
-        }
-    };
-
-    changeRender = () => {
-        this.setState({ ...this.state, onHomePage: !this.state.onHomePage })
     }
 
     render() {
         return (
             <div>
-                <div>
-                    {this.renderThing()}
+                <div className="sidenav">
+                    <Link className="link" to="/post-add" onClick={this.checkIfUserLogged.bind(this)}>Add Post</Link>
+                    <a href="." onClick={this.resetPosts.bind(this, null)}>All</a>
+                    {this.state.categories && this.state.categories.map((category, i) =>
+                        <a key={i} href="#" onClick={this.getPostsFiltered.bind(this, category.name)}>{category.name}</a>)}
+                </div>
+                <div className="App-header">
+                    <h1 className="title-home">Post page</h1>
+                    {this.state.posts && this.state.posts.map((post, i) =>
+                        <div className="post" key={i}>
+                            <h2>{post.title}</h2>
+                            <h1>{post.categoryName}</h1>
+                            <p>{post.userUsername != null ? "by " + post.userUsername : ""}</p>
+                            <img className="image" alt={post.title} src={GlobalVariables.backendUrl + '/posts/image/' + post.uid} width="350" />
+                        </div>
+                    )}
                 </div>
             </div>
-        )
+        );
     };
 }
 

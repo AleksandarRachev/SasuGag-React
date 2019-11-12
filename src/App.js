@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import AddPostPage from './pages/AddPostPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import PostPage from './pages/PostPage';
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,7 +19,7 @@ class App extends React.Component {
   }
 
   renderLogin = () => {
-      if (localStorage.getItem("LOGIN") == null) {
+      if (localStorage.getItem("token") == null) {
         return (
           <a className="regular-navbar-link" href="/login">Login</a>
         );
@@ -43,6 +44,7 @@ class App extends React.Component {
           <Route path="/post-add"><AddPostPage /></Route>
           <Route path="/login"><LoginPage /></Route>
           <Route path="/register"><RegisterPage /></Route>
+          <Route path="/post**"><PostPage/></Route>
           <Redirect from="/" to="/home"></Redirect>
         </Switch>
       </Router>

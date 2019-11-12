@@ -58,7 +58,7 @@ class RegisterPage extends Component {
                     <input className="input" placeholder="Username" onChange={event => this.setUsername(event.target.value)} />
                     <input type="password" className="input" placeholder="* Password" required onChange={event => this.setPassword(event.target.value)} />
                     <div className="input-div">
-                        <a className="submit-button" onClick={this.registerUser.bind(this)}>Register</a>
+                        <button className="submit-button" type="submit" onClick={this.registerUser.bind(this)}>Register</button>
                     </div>
                 </form>
             </div>

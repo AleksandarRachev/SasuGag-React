@@ -3,6 +3,9 @@ import Error from '../Error/Error';
 import axios from 'axios'
 import GlobalVariables from '../globalVariables'
 import '../css/LoginPage.css'
+import {
+    Link,
+} from "react-router-dom";
 
 class LoginPage extends Component {
 
@@ -48,8 +51,8 @@ class LoginPage extends Component {
                     <input className="input" placeholder="Email" onChange={event => this.setEmail(event.target.value)} /><br />
                     <input type="password" placeholder="Password" className="input" onChange={event => this.setPassword(event.target.value)} />
                     <div className="link-div">
-                        <a className="submit-button" onClick={this.loginUser.bind(this)}>Login</a>
-                        <a className="submit-button" href="/register">Register</a>
+                        <button className="submit-button" type="submit" onClick={this.loginUser.bind(this)}>Login</button>
+                        <button className="submit-button"><Link to="/register">Register</Link></button>
                     </div>
                 </form>
             </div>

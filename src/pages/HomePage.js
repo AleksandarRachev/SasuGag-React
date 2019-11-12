@@ -6,10 +6,6 @@ import {
     Link,
 } from "react-router-dom";
 
-const headers = {
-    'Authorization': 'Bearer ' + localStorage.getItem("token")
-}
-
 class HomePage extends React.Component {
 
     state = {
@@ -39,14 +35,12 @@ class HomePage extends React.Component {
     }
 
     getPosts = (page) => {
-        axios.get(GlobalVariables.backendUrl + "/posts/count", {}).then(data => this.setState({ ...this.state, pages: new Array(data.data) }));
         this.setState({ ...this.state, currentCategory: null })
         axios.get(GlobalVariables.backendUrl + "/posts?page=" + page, {}).then(data => this.setState({ ...this.state, posts: this.state.posts.concat(data.data) }));
     }
 
     getPostsFiltered = category => {
         this.resetPosts(category);
-        axios.get(GlobalVariables.backendUrl + "/posts/count/filter?category=" + category, {}).then(data => this.setState({ ...this.state, pages: new Array(data.data) }));
         axios.get(GlobalVariables.backendUrl + "/posts/filter?category=" + category +"&page=" + 0, {}).then(data => this.setState({ ...this.state, posts: data.data }))
     }
 
@@ -68,13 +62,13 @@ class HomePage extends React.Component {
     }
 
     resetPosts = (category) => {
-        this.state = {
+        this.setState({...this.state, state: {
             posts: [],
             page: 0,
             pages: this.state.pages,
             categories: this.state.categories,
             currentCategory: category
-        }
+        }})
     }
 
     render() {
@@ -90,9 +84,7 @@ class HomePage extends React.Component {
                     <h1 className="title-home">Post page</h1>
                     {this.state.posts && this.state.posts.map((post, i) =>
                         <div className="post" key={i}>
-                            <h2>{post.title}</h2>
-                            <h1>{post.categoryName}</h1>
-                            <p>{post.userUsername != null ? "by " + post.userUsername : ""}</p>
+                            <h2><Link className="link" to={"/posts/"+post.uid} target="blank">{post.title}</Link></h2><br/>
                             <img className="image" alt={post.title} src={GlobalVariables.backendUrl + '/posts/image/' + post.uid} width="350" />
                         </div>
                     )}

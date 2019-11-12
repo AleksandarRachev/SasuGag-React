@@ -52,11 +52,13 @@ class AddPostPage extends React.Component {
 
     setTitle = (title) => {
         const chunks = title.match(/.{1,18}/g);
-        title = chunks.join(" ");
-        const data = this.state.data == null ? new FormData() : this.state.data;
-        data.delete('title')
-        data.append('title', title)
-        this.setState({ ...this.state, data: data })
+        if (chunks != null) {
+            title = chunks.join(" ");
+            const data = this.state.data == null ? new FormData() : this.state.data;
+            data.delete('title')
+            data.append('title', title)
+            this.setState({ ...this.state, data: data })
+        }
     }
 
     setCategory = (category) => {

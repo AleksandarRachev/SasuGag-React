@@ -5,7 +5,7 @@ import AddPostPage from './pages/AddPostPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import PostPage from './pages/PostPage';
-import menuicon from './icons/menuicon1.png';
+import menuicon from './icons/menuicon.png';
 import {
   BrowserRouter as Router,
   Switch,

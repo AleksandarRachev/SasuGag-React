@@ -72,8 +72,3 @@
 .dropdown:hover .dropdown-content {
   display: block;
 }
-
-.dropdown:hover .dropbtn {
-  background-color: #f2f2f25e;
-  color: black;
-}

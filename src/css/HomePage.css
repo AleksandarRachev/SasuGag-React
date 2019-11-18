@@ -85,7 +85,7 @@
 .post {
   text-align: center;
   background-color: #18181a;
-  padding-bottom: 5%;
+  padding-bottom: 1%;
   border-radius: 10%;
   margin: 0 35%;
 }
@@ -94,4 +94,32 @@
   padding-top: 5%;
   margin-block-end: 0%;
   font-size: calc(80% + 1vmin);
+}
+
+.points {
+  padding: 2% 60% 2% 0%;
+  font-size: 65%;
+  display: contents;
+  color: #f3f3f3a8;
+}
+
+.info {
+  display: flex;
+  padding: 1% 0% 5% 8%;
+}
+
+.post-buttons {
+  display: flex;
+  padding: 0% 10%;
+}
+
+.vote-button {
+  width: 12%;
+  margin-right: 3%;
+  padding: 1%;
+}
+
+.vote-button:hover {
+  background-color: rgba(141, 140, 140, 0.616);
+  border-radius: 50%;
 }

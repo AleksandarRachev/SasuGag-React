@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import GlobalVariables from '../globalVariables'
 import '../css/HomePage.css'
+import upvote from '../icons/upvote.png';
+import downvote from '../icons/downvote.png';
 import {
     Link,
 } from "react-router-dom";
@@ -41,7 +43,7 @@ class HomePage extends React.Component {
 
     getPostsFiltered = category => {
         this.resetPosts(category);
-        axios.get(GlobalVariables.backendUrl + "/posts/filter?category=" + category +"&page=" + 0, {}).then(data => this.setState({ ...this.state, posts: data.data }))
+        axios.get(GlobalVariables.backendUrl + "/posts/filter?category=" + category + "&page=" + 0, {}).then(data => this.setState({ ...this.state, posts: data.data }))
     }
 
     changePage = page => {
@@ -62,13 +64,23 @@ class HomePage extends React.Component {
     }
 
     resetPosts = (category) => {
-        this.setState({...this.state, state: {
-            posts: [],
-            page: 0,
-            pages: this.state.pages,
-            categories: this.state.categories,
-            currentCategory: category
-        }})
+        this.setState({
+            ...this.state, state: {
+                posts: [],
+                page: 0,
+                pages: this.state.pages,
+                categories: this.state.categories,
+                currentCategory: category
+            }
+        })
+    }
+
+    votePost = (postId, i, action) => {
+        axios.put(GlobalVariables.backendUrl+"/posts/vote", {
+            uid: postId,
+            vote: action
+        }).then(data => this.state.posts[i] = data.data);
+        this.forceUpdate();
     }
 
     render() {
@@ -84,8 +96,16 @@ class HomePage extends React.Component {
                     <h1 className="title-home">Post page</h1>
                     {this.state.posts && this.state.posts.map((post, i) =>
                         <div className="post" key={i}>
-                            <h2><Link className="link" to={"/posts/"+post.uid} target="blank">{post.title}</Link></h2><br/>
+                            <h2><Link className="link" to={"/posts/" + post.uid} target="blank">{post.title}</Link></h2><br />
                             <img className="image" alt={post.title} src={GlobalVariables.backendUrl + '/posts/image/' + post.uid} width="350" />
+                            <div className="info">
+                                <p className="points">{post.points} points . </p>
+                                <p className="points">{0} comments</p>
+                            </div>
+                            <div className="post-buttons">
+                                <img className="vote-button" src={upvote} onClick={this.votePost.bind(this, post.uid, i, "up")}/>
+                                <img className="vote-button" src={downvote} onClick={this.votePost.bind(this, post.uid, i, "down")}/>
+                            </div>
                         </div>
                     )}
                 </div>

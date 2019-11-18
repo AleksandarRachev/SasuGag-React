@@ -1,10 +1,11 @@
 .submit-button {
-    padding: 3% 5% 3% 5%;
+    padding: 5% 8%;
     margin: 5% 5%;
     background-color: #d4cdcd;
     border-radius: 20%;
     text-decoration: none;
-    color:black;
+    color: black;
+    border: none;
 }
 
 .submit-button:hover {

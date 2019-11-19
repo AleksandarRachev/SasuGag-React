@@ -58,7 +58,7 @@ class HomePage extends React.Component {
     }
 
     renderAddCategory = () => {
-        if (localStorage.getItem("token") != null && localStorage.getItem("role") == "ADMIN") {
+        if (localStorage.getItem("token") !== null && localStorage.getItem("role") === "ADMIN") {
             return (
                 <div>
                     <Link className="add-category-link" to="/category">Add Category</Link>
@@ -116,8 +116,8 @@ class HomePage extends React.Component {
                                 <p className="points">{0} comments</p>
                             </div>
                             <div className="post-buttons">
-                                <img className="vote-button" src={upvote} onClick={this.votePost.bind(this, post.uid, i, "up")} />
-                                <img className="vote-button" src={downvote} onClick={this.votePost.bind(this, post.uid, i, "down")} />
+                                <img className="vote-button" alt="" src={upvote} onClick={this.votePost.bind(this, post.uid, i, "up")} />
+                                <img className="vote-button" alt="" src={downvote} onClick={this.votePost.bind(this, post.uid, i, "down")} />
                             </div>
                         </div>
                     )}

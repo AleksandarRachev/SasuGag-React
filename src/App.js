@@ -39,7 +39,7 @@ class App extends React.Component {
         <div className="navbar">
           <a className="home-link" href="/">Home</a>
           <div className="dropdown">
-            <img className="dropbtn" src={menuicon}/>
+            <img className="dropbtn" alt="" src={menuicon}/>
             <div className="dropdown-content">
               <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Never</a>
               {this.renderLogin()}

@@ -40,8 +40,8 @@ class PostPage extends React.Component {
                         <p className="points">{0} comments</p>
                     </div>
                     <div className="post-buttons">
-                        <img className="vote-button" src={upvote} onClick={this.votePost.bind(this, this.state.post.uid, "up")} />
-                        <img className="vote-button" src={downvote} onClick={this.votePost.bind(this, this.state.post.uid, "down")} />
+                        <img className="vote-button" alt="" src={upvote} onClick={this.votePost.bind(this, this.state.post.uid, "up")} />
+                        <img className="vote-button" alt="" src={downvote} onClick={this.votePost.bind(this, this.state.post.uid, "down")} />
                     </div>
                 </div>
             );

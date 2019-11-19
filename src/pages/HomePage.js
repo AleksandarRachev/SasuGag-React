@@ -67,14 +67,6 @@ class HomePage extends React.Component {
         }
     }
 
-    renderAddPost = () => {
-        if (localStorage.getItem("token") != null) {
-            return (
-                <Link className="link" to="/post-add">Add Post</Link>
-            );
-        }
-    }
-
     resetPosts = (category) => {
         this.setState({
             ...this.state, state: {
@@ -100,7 +92,7 @@ class HomePage extends React.Component {
             <div>
                 <div className="sidenav">
                     {this.renderAddCategory()}
-                    {this.renderAddPost()}
+                    <Link className="link" to="/post-add">Add Post</Link>
                     <a href="." onClick={this.resetPosts.bind(this, null)}>All</a>
                     {this.state.categories && this.state.categories.map((category, i) =>
                         <a key={i} href="#" onClick={this.getPostsFiltered.bind(this, category.name)}>{category.name}</a>)}

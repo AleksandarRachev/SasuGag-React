@@ -28,6 +28,7 @@ class LoginPage extends Component {
             password: this.state.password
         }).then(response => {
             localStorage.setItem("token", response.data.token)
+            localStorage.setItem("role", response.data.userResponse.role)
             window.location.href = "/home"
         },
             error => {

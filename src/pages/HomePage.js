@@ -57,9 +57,21 @@ class HomePage extends React.Component {
         }
     }
 
-    checkIfUserLogged = () => {
-        if (localStorage.getItem("token") == null) {
-            window.location.href = "/login"
+    renderAddCategory = () => {
+        if (localStorage.getItem("token") != null && localStorage.getItem("role") == "ADMIN") {
+            return (
+                <div>
+                    <Link className="add-category-link" to="/category">Add Category</Link>
+                </div>
+            );
+        }
+    }
+
+    renderAddPost = () => {
+        if (localStorage.getItem("token") != null) {
+            return (
+                <Link className="link" to="/post-add">Add Post</Link>
+            );
         }
     }
 
@@ -76,7 +88,7 @@ class HomePage extends React.Component {
     }
 
     votePost = (postId, i, action) => {
-        axios.put(GlobalVariables.backendUrl+"/posts/vote", {
+        axios.put(GlobalVariables.backendUrl + "/posts/vote", {
             uid: postId,
             vote: action
         }).then(data => this.state.posts[i] = data.data);
@@ -87,7 +99,8 @@ class HomePage extends React.Component {
         return (
             <div>
                 <div className="sidenav">
-                    <Link className="link" to="/post-add" onClick={this.checkIfUserLogged.bind(this)}>Add Post</Link>
+                    {this.renderAddCategory()}
+                    {this.renderAddPost()}
                     <a href="." onClick={this.resetPosts.bind(this, null)}>All</a>
                     {this.state.categories && this.state.categories.map((category, i) =>
                         <a key={i} href="#" onClick={this.getPostsFiltered.bind(this, category.name)}>{category.name}</a>)}
@@ -96,15 +109,15 @@ class HomePage extends React.Component {
                     <h1 className="title-home">Post page</h1>
                     {this.state.posts && this.state.posts.map((post, i) =>
                         <div className="post" key={i}>
-                            <h2><Link className="link" to={"/posts/" + post.uid} target="blank">{post.title}</Link></h2><br />
+                            <h2><Link className="link" to={"/posts/" + post.uid} target="_blank">{post.title}</Link></h2><br />
                             <img className="image" alt={post.title} src={GlobalVariables.backendUrl + '/posts/image/' + post.uid} width="350" />
                             <div className="info">
                                 <p className="points">{post.points} points . </p>
                                 <p className="points">{0} comments</p>
                             </div>
                             <div className="post-buttons">
-                                <img className="vote-button" src={upvote} onClick={this.votePost.bind(this, post.uid, i, "up")}/>
-                                <img className="vote-button" src={downvote} onClick={this.votePost.bind(this, post.uid, i, "down")}/>
+                                <img className="vote-button" src={upvote} onClick={this.votePost.bind(this, post.uid, i, "up")} />
+                                <img className="vote-button" src={downvote} onClick={this.votePost.bind(this, post.uid, i, "down")} />
                             </div>
                         </div>
                     )}

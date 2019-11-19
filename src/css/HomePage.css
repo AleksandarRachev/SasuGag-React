@@ -50,6 +50,19 @@
 
 .sidenav .link {
   background-color: #605f60;
+  color: white;
+}
+
+.sidenav .link:hover {
+  color: black;
+}
+
+.sidenav .add-category-link {
+  background-color: #116eac;
+  color: white;
+}
+
+.sidenav .add-category-link:hover {
   color: black;
 }
 

@@ -22,6 +22,13 @@ class AddPostPage extends React.Component {
 
     componentDidMount() {
         axios.get(GlobalVariables.backendUrl + "/categories", {}).then(data => this.setState({ ...this.state, categories: data.data }));
+        this.checkIfUserLogged();
+    }
+
+    checkIfUserLogged = () => {
+        if (localStorage.getItem("token") == null) {
+            window.location.href = "/login"
+        }
     }
 
     uploadFileToServer = () => {

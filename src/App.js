@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import AddPostPage from './pages/AddPostPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import AddCategoryPage from './pages/AddCategoryPage';
 import PostPage from './pages/PostPage';
 import menuicon from './icons/menuicon.png';
 import {
@@ -51,6 +52,7 @@ class App extends React.Component {
             <Route path="/post-add"><AddPostPage /></Route>
             <Route path="/login"><LoginPage /></Route>
             <Route path="/register"><RegisterPage /></Route>
+            <Route path="/category"><AddCategoryPage/></Route>
             <Route path="/post**"><PostPage /></Route>
             <Redirect from="/" to="/home"></Redirect>
           </Switch>

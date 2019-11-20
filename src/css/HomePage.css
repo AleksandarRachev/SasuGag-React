@@ -136,3 +136,14 @@
   background-color: rgba(141, 140, 140, 0.616);
   border-radius: 50%;
 }
+
+.comment-button-icon {
+  width: 12%;
+  margin-right: 3%;
+  padding: 1%;
+}
+
+.comment-button-icon:hover {
+  background-color: rgba(141, 140, 140, 0.616);
+  border-radius: 20%;
+}

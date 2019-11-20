@@ -4,6 +4,7 @@ import GlobalVariables from '../globalVariables'
 import '../css/HomePage.css'
 import upvote from '../icons/upvote.png';
 import downvote from '../icons/downvote.png';
+import comment from '../icons/comment.png';
 import {
     Link,
 } from "react-router-dom";
@@ -87,6 +88,10 @@ class HomePage extends React.Component {
         this.forceUpdate();
     }
 
+    goToPost = (postId) => {
+        window.open("/posts/" + postId, "_blank");
+    }
+
     render() {
         return (
             <div>
@@ -105,11 +110,12 @@ class HomePage extends React.Component {
                             <img className="image" alt={post.title} src={GlobalVariables.backendUrl + '/posts/image/' + post.uid} width="350" />
                             <div className="info">
                                 <p className="points">{post.points} points . </p>
-                                <p className="points">{0} comments</p>
+                                <p className="points">{post.comments} comments</p>
                             </div>
                             <div className="post-buttons">
                                 <img className="vote-button" alt="" src={upvote} onClick={this.votePost.bind(this, post.uid, i, "up")} />
                                 <img className="vote-button" alt="" src={downvote} onClick={this.votePost.bind(this, post.uid, i, "down")} />
+                                <img className="comment-button-icon" alt="" src={comment} onClick={this.goToPost.bind(this, post.uid)} />
                             </div>
                         </div>
                     )}

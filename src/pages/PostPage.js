@@ -37,7 +37,12 @@ class PostPage extends React.Component {
         axios.put(GlobalVariables.backendUrl + "/posts/vote", {
             uid: postId,
             vote: action
-        }).then(data => this.setState({ ...this.state, post: data.data }));
+        }, { headers: headers }).then(data => this.setState({ ...this.state, post: data.data }), error => {
+            if (error.response.status === 403) {
+                window.location.href = "/login"
+
+            }
+        });
     }
 
     setComment = comment => {
@@ -104,9 +109,9 @@ class PostPage extends React.Component {
                         </form>
                         <div className="comments">
                             {this.state.comments && this.state.comments.map((comment, i) =>
-                                <div>
+                                <div key={i}>
                                     <p className="comment-owner">by {comment.userUsername}</p>
-                                    <p className="comment-text" key={i}>{comment.text}</p>
+                                    <p className="comment-text">{comment.text}</p>
                                 </div>
                             )}
                         </div>

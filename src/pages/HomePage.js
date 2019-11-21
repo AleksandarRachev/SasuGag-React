@@ -9,6 +9,10 @@ import {
     Link,
 } from "react-router-dom";
 
+const headers = {
+    'Authorization': 'Bearer ' + localStorage.getItem("token")
+}
+
 class HomePage extends React.Component {
 
     state = {
@@ -84,7 +88,12 @@ class HomePage extends React.Component {
         axios.put(GlobalVariables.backendUrl + "/posts/vote", {
             uid: postId,
             vote: action
-        }).then(data => this.state.posts[i] = data.data);
+        }, { headers: headers }).then(data => this.state.posts[i] = data.data, error => {
+            if (error.response.status === 403) {
+                window.location.href = "/login"
+
+            }
+        });
         this.forceUpdate();
     }
 

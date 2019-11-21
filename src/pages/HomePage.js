@@ -84,17 +84,17 @@ class HomePage extends React.Component {
         })
     }
 
-    votePost = (postId, i, action) => {
+    votePost = (post, i, action) => {
         axios.put(GlobalVariables.backendUrl + "/posts/vote", {
-            uid: postId,
+            uid: post.uid,
             vote: action
-        }, {headers:headers}).then(data => this.state.posts[i] = data.data, error => {
+        }, { headers: headers }).then(data => this.setState({ ...this.state, [this.state.posts[i]]: data.data },
+            console.log((this.state.posts[i] = data.data) == null ? "" : "")), data => post = data, error => {
                 if (error.response.status === 403) {
                     window.location.href = "/login"
 
                 }
-        });
-        this.forceUpdate();
+            });
     }
 
     goToPost = (postId) => {
@@ -122,8 +122,8 @@ class HomePage extends React.Component {
                                 <p className="points">{post.comments} comments</p>
                             </div>
                             <div className="post-buttons">
-                                <img className="vote-button" alt="" src={upvote} onClick={this.votePost.bind(this, post.uid, i, "up")} />
-                                <img className="vote-button" alt="" src={downvote} onClick={this.votePost.bind(this, post.uid, i, "down")} />
+                                <img className="vote-button" alt="" src={upvote} onClick={this.votePost.bind(this, post, i, "up")} />
+                                <img className="vote-button" alt="" src={downvote} onClick={this.votePost.bind(this, post, i, "down")} />
                                 <img className="comment-button-icon" alt="" src={comment} onClick={this.goToPost.bind(this, post.uid)} />
                             </div>
                         </div>

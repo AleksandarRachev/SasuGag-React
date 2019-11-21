@@ -88,11 +88,11 @@ class HomePage extends React.Component {
         axios.put(GlobalVariables.backendUrl + "/posts/vote", {
             uid: postId,
             vote: action
-        }, { headers: headers }).then(data => this.state.posts[i] = data.data, error => {
-            if (error.response.status === 403) {
-                window.location.href = "/login"
+        }, {headers:headers}).then(data => this.state.posts[i] = data.data, error => {
+                if (error.response.status === 403) {
+                    window.location.href = "/login"
 
-            }
+                }
         });
         this.forceUpdate();
     }

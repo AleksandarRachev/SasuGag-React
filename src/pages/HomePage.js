@@ -89,7 +89,7 @@ class HomePage extends React.Component {
             uid: post.uid,
             vote: action
         }, { headers: headers }).then(data => this.setState({ ...this.state, [this.state.posts[i]]: data.data },
-            console.log((this.state.posts[i] = data.data) == null ? "" : "")), data => post = data, error => {
+            console.log((this.state.posts[i] = data.data) == null ? "" : "")), error => {
                 if (error.response.status === 403) {
                     window.location.href = "/login"
 

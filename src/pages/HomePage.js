@@ -3,6 +3,8 @@ import axios from 'axios';
 import GlobalVariables from '../globalVariables'
 import '../css/HomePage.css'
 import upvote from '../icons/upvote.png';
+import upvoteActive from '../icons/upvote-active.png';
+import downvoteActive from '../icons/downvote-active.png';
 import downvote from '../icons/downvote.png';
 import comment from '../icons/comment.png';
 import {
@@ -19,17 +21,27 @@ class HomePage extends React.Component {
         posts: [],
         page: 0,
         categories: [],
-        currentCategory: null
+        currentCategory: null,
+        votedPosts: []
     }
 
     componentDidMount() {
         window.addEventListener('scroll', this.listenToScroll)
         axios.get(GlobalVariables.backendUrl + "/categories", {}).then(data => this.setState({ ...this.state, categories: data.data }));
-        this.getPosts(0)
+        this.getPosts(0);
+        this.getVotedPosts();
     }
 
     componentDidUpdate() {
         window.addEventListener('scroll', this.listenToScroll)
+    }
+
+    checkIfUpvoted = (postId) => {
+        return this.state.votedPosts.filter(post => post.up === true).map(post => post.postUid).includes(postId);
+    }
+
+    checkIfDownvoted = (postId) => {
+        return this.state.votedPosts.filter(post => post.down === true).map(post => post.postUid).includes(postId);
     }
 
     listenToScroll = () => {
@@ -38,6 +50,12 @@ class HomePage extends React.Component {
 
         if (window.scrollY > (limit - 1000)) {
             this.changePage(this.state.page + 1);
+        }
+    }
+
+    getVotedPosts = () => {
+        if (localStorage.getItem("token") !== null) {
+            axios.get(GlobalVariables.backendUrl + "/posts/voted", { headers: headers }, {}).then(data => this.setState({ ...this.state, votedPosts: data.data }, console.log(this.state.votedPosts)));
         }
     }
 
@@ -95,6 +113,7 @@ class HomePage extends React.Component {
 
                 }
             });
+        this.getVotedPosts();
     }
 
     goToPost = (postId) => {
@@ -122,8 +141,8 @@ class HomePage extends React.Component {
                                 <p className="points">{post.comments} comments</p>
                             </div>
                             <div className="post-buttons">
-                                <img className="vote-button" alt="" src={upvote} onClick={this.votePost.bind(this, post, i, "up")} />
-                                <img className="vote-button" alt="" src={downvote} onClick={this.votePost.bind(this, post, i, "down")} />
+                                <img className="vote-button" alt="" src={this.checkIfUpvoted(post.uid) ? upvoteActive : upvote} onClick={this.votePost.bind(this, post, i, "up")} />
+                                <img className="vote-button" alt="" src={this.checkIfDownvoted(post.uid) ? downvoteActive : downvote} onClick={this.votePost.bind(this, post, i, "down")} />
                                 <img className="comment-button-icon" alt="" src={comment} onClick={this.goToPost.bind(this, post.uid)} />
                             </div>
                         </div>

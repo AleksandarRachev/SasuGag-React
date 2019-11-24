@@ -129,8 +129,8 @@ class HomePage extends React.Component {
                                 <p className="points">{post.comments} comments</p>
                             </div>
                             <div className="post-buttons">
-                                <img className="vote-button" alt="" src={post.voteOnPost.up ? upvoteActive : upvote} onClick={this.votePost.bind(this, post, i, "up")} />
-                                <img className="vote-button" alt="" src={post.voteOnPost.down ? downvoteActive : downvote} onClick={this.votePost.bind(this, post, i, "down")} />
+                                <img className="vote-button" alt="" src={(post.voteOnPost && post.voteOnPost.up) ? upvoteActive : upvote} onClick={this.votePost.bind(this, post, i, "up")} />
+                                <img className="vote-button" alt="" src={(post.voteOnPost && post.voteOnPost.down) ? downvoteActive : downvote} onClick={this.votePost.bind(this, post, i, "down")} />
                                 <img className="comment-button-icon" alt="" src={comment} onClick={this.goToPost.bind(this, post.uid)} />
                             </div>
                         </div>

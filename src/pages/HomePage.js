@@ -29,19 +29,10 @@ class HomePage extends React.Component {
         window.addEventListener('scroll', this.listenToScroll)
         axios.get(GlobalVariables.backendUrl + "/categories", {}).then(data => this.setState({ ...this.state, categories: data.data }));
         this.getPosts(0);
-        this.getVotedPosts();
     }
 
     componentDidUpdate() {
         window.addEventListener('scroll', this.listenToScroll)
-    }
-
-    checkIfUpvoted = (postId) => {
-        return this.state.votedPosts.filter(post => post.up === true).map(post => post.postUid).includes(postId);
-    }
-
-    checkIfDownvoted = (postId) => {
-        return this.state.votedPosts.filter(post => post.down === true).map(post => post.postUid).includes(postId);
     }
 
     listenToScroll = () => {
@@ -53,15 +44,13 @@ class HomePage extends React.Component {
         }
     }
 
-    getVotedPosts = () => {
-        if (localStorage.getItem("token") !== null) {
-            axios.get(GlobalVariables.backendUrl + "/posts/voted", { headers: headers }, {}).then(data => this.setState({ ...this.state, votedPosts: data.data }, console.log(this.state.votedPosts)));
-        }
-    }
-
     getPosts = (page) => {
+        var userId = null;
+        if (localStorage.getItem("user") !== null) {
+            userId = JSON.parse(localStorage.getItem("user")).uid;
+        }
         this.setState({ ...this.state, currentCategory: null })
-        axios.get(GlobalVariables.backendUrl + "/posts?page=" + page, {}).then(data => this.setState({ ...this.state, posts: this.state.posts.concat(data.data) }));
+        axios.get(GlobalVariables.backendUrl + "/posts?page=" + page + (userId !== null ? ("&userId=" + userId) : ""), {}).then(data => this.setState({ ...this.state, posts: this.state.posts.concat(data.data) }));
     }
 
     getPostsFiltered = category => {
@@ -81,7 +70,7 @@ class HomePage extends React.Component {
     }
 
     renderAddCategory = () => {
-        if (localStorage.getItem("token") !== null && localStorage.getItem("role") === "ADMIN") {
+        if (localStorage.getItem("token") !== null && JSON.parse(localStorage.getItem("user")).role === "ADMIN") {
             return (
                 <div>
                     <Link className="add-category-link" to="/category">Add Category</Link>
@@ -106,14 +95,13 @@ class HomePage extends React.Component {
         axios.put(GlobalVariables.backendUrl + "/posts/vote", {
             uid: post.uid,
             vote: action
-        }, { headers: headers }).then(data => this.setState({ ...this.state, [this.state.posts[i]]: data.data },
+        }, { headers: headers }).then(data => this.setState({ ...this.state.posts, [this.state.posts[i]]: data.data },
             console.log((this.state.posts[i] = data.data) == null ? "" : "")), error => {
                 if (error.response.status === 403) {
                     window.location.href = "/login"
 
                 }
             });
-        this.getVotedPosts();
     }
 
     goToPost = (postId) => {
@@ -141,8 +129,8 @@ class HomePage extends React.Component {
                                 <p className="points">{post.comments} comments</p>
                             </div>
                             <div className="post-buttons">
-                                <img className="vote-button" alt="" src={this.checkIfUpvoted(post.uid) ? upvoteActive : upvote} onClick={this.votePost.bind(this, post, i, "up")} />
-                                <img className="vote-button" alt="" src={this.checkIfDownvoted(post.uid) ? downvoteActive : downvote} onClick={this.votePost.bind(this, post, i, "down")} />
+                                <img className="vote-button" alt="" src={post.voteOnPost.up ? upvoteActive : upvote} onClick={this.votePost.bind(this, post, i, "up")} />
+                                <img className="vote-button" alt="" src={post.voteOnPost.down ? downvoteActive : downvote} onClick={this.votePost.bind(this, post, i, "down")} />
                                 <img className="comment-button-icon" alt="" src={comment} onClick={this.goToPost.bind(this, post.uid)} />
                             </div>
                         </div>

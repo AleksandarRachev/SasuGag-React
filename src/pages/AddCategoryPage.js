@@ -21,8 +21,8 @@ class AddCategorypage extends React.Component {
     }
 
     checkIfUserAdmin() {
-        if(localStorage.getItem("token") === null || localStorage.getItem("role") !== "ADMIN"){
-            window.location.href="/home"
+        if (localStorage.getItem("token") === null || JSON.parse(localStorage.getItem("user")).role !== "ADMIN") {
+            window.location.href = "/home"
         }
     }
 

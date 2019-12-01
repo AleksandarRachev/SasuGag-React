@@ -29,7 +29,6 @@ class RegisterPage extends Component {
             password: this.state.password,
             username: this.state.username
         }).then(response => {
-            localStorage.setItem("user", response.data.username)
             alert("Register successfull");
             window.location.href="/login"
         },

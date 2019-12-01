@@ -50,7 +50,8 @@ class HomePage extends React.Component {
             userId = JSON.parse(localStorage.getItem("user")).uid;
         }
         this.setState({ ...this.state, currentCategory: null })
-        axios.get(GlobalVariables.backendUrl + "/posts?page=" + page + (userId !== null ? ("&userId=" + userId) : ""), {}).then(data => this.setState({ ...this.state, posts: this.state.posts.concat(data.data) }));
+        axios.get(GlobalVariables.backendUrl + "/posts?page=" + page + (userId !== null ? ("&userId=" + userId) : ""), {})
+        .then(data => this.setState({ ...this.state, posts: this.state.posts.concat(data.data) }));
     }
 
     getPostsFiltered = category => {

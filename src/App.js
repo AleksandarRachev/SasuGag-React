@@ -7,6 +7,7 @@ import RegisterPage from './pages/RegisterPage';
 import AddCategoryPage from './pages/AddCategoryPage';
 import Profile from './pages/Profile';
 import PostPage from './pages/PostPage';
+import UserPosts from './pages/UserPosts';
 import menuicon from './icons/menuicon.png';
 import {
   BrowserRouter as Router,
@@ -59,6 +60,7 @@ class App extends React.Component {
             <Route path="/category"><AddCategoryPage /></Route>
             <Route path="/post**"><PostPage /></Route>
             <Route path="/profile" ><Profile /></Route>
+            <Route path="/user-posts" ><UserPosts /></Route>
             <Redirect from="/" to="/home"></Redirect>
           </Switch>
         </Router>

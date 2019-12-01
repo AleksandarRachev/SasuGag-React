@@ -29,9 +29,7 @@ class AddCategorypage extends React.Component {
     addCategory = () => {
         axios.post(GlobalVariables.backendUrl + '/categories', {
             name: this.state.category
-        }, {
-            headers: headers
-        }).then(() => {
+        }, {headers: headers}).then(() => {
             alert("Category added successfully")
 
             this.setState({ ...this.state, category: null });

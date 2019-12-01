@@ -1,4 +1,7 @@
 import React from 'react';
+import {
+    Link,
+} from "react-router-dom";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
@@ -12,8 +15,8 @@ class Profile extends React.Component {
             return (
                 <div>
                     <div className="sidenav">
-                        <a>Your posts</a>
-                        <a>Voted posts</a>
+                        <Link to="/user-posts">Your posts</Link>
+                        <Link to="/user-voted">Voted posts</Link>
                     </div>
                     <div>
                         <h1 className="title-home">Hello {user.username === null ? user.email : user.username}</h1>

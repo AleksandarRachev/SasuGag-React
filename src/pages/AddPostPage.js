@@ -94,7 +94,7 @@ class AddPostPage extends React.Component {
                     <select id="category" className="input" onChange={event => this.setCategory(event.target.value)}>
                         <option value="" defaultValue=""></option>
                         {this.state.categories.map((category, i) =>
-                            <option value={category.name}>{category.name}</option>
+                            <option key={i} value={category.name}>{category.name}</option>
                         )}
                     </select><br />
                     <input className="input" id="title" placeholder="Title" onBlur={event => this.setTitle(event.target.value)} /><br />

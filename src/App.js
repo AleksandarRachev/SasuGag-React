@@ -5,6 +5,7 @@ import AddPostPage from './pages/AddPostPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import AddCategoryPage from './pages/AddCategoryPage';
+import Profile from './pages/Profile';
 import PostPage from './pages/PostPage';
 import menuicon from './icons/menuicon.png';
 import {
@@ -27,7 +28,10 @@ class App extends React.Component {
       );
     } else {
       return (
-        <a onClick={this.logout.bind(this)} href=".">Logout</a>
+        <div>
+          <a href="/profile">Profile</a>
+          <a onClick={this.logout.bind(this)} href=".">Logout</a>
+        </div>
       );
     }
   }
@@ -39,7 +43,7 @@ class App extends React.Component {
         <div className="navbar">
           <a className="home-link" href="/">Home</a>
           <div className="dropdown">
-            <img className="dropbtn" alt="" src={menuicon}/>
+            <img className="dropbtn" alt="" src={menuicon} />
             <div className="dropdown-content">
               <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Never</a>
               {this.renderLogin()}
@@ -52,8 +56,9 @@ class App extends React.Component {
             <Route path="/post-add"><AddPostPage /></Route>
             <Route path="/login"><LoginPage /></Route>
             <Route path="/register"><RegisterPage /></Route>
-            <Route path="/category"><AddCategoryPage/></Route>
+            <Route path="/category"><AddCategoryPage /></Route>
             <Route path="/post**"><PostPage /></Route>
+            <Route path="/profile" ><Profile /></Route>
             <Redirect from="/" to="/home"></Redirect>
           </Switch>
         </Router>

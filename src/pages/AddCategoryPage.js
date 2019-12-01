@@ -34,7 +34,7 @@ class AddCategorypage extends React.Component {
         }).then(() => {
             alert("Category added successfully")
 
-            this.setState({ ...this.state, data: null });
+            this.setState({ ...this.state, category: null });
             document.getElementById("category").value = null
         },
             error => {

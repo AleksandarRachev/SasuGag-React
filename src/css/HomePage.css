@@ -13,7 +13,7 @@
   margin-bottom: 1%;
 }
 
-.sidenav {
+/* .sidenav {
   height: 91%;
   width: 8%;
   position: fixed;
@@ -68,7 +68,7 @@
 
 .sidenav a:hover {
   color: #f1f1f1;
-}
+} */
 
 .post .link {
   text-decoration: none;

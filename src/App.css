@@ -78,3 +78,60 @@
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+.sidenav {
+  height: 91%;
+  width: 8%;
+  position: fixed;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 0%;
+  padding-bottom: 5%;
+}
+
+.sidenav::-webkit-scrollbar {
+  width: 10px;
+}
+
+.sidenav::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+  
+.sidenav::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.sidenav a {
+  padding: 10% 25% 10% 10%;
+  text-decoration: none;
+  padding-left: 10%;
+  font-size: 75%;
+  color: #818181;
+  display: block;
+}
+
+.sidenav .link {
+  background-color: #605f60;
+  color: white;
+}
+
+.sidenav .link:hover {
+  color: black;
+}
+
+.sidenav .add-category-link {
+  background-color: #116eac;
+  color: white;
+}
+
+.sidenav .add-category-link:hover {
+  color: black;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}

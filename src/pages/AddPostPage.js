@@ -47,6 +47,7 @@ class AddPostPage extends React.Component {
                 if (error.response.data.message != null) {
                     this.setState({ ...this.state, error: "There was an error: " + error.response.data.message })
                     if (error.response.status === 403) {
+                        localStorage.clear();
                         window.location.href = "/login"
 
                     }

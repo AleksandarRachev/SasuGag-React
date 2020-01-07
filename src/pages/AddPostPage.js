@@ -59,9 +59,16 @@ class AddPostPage extends React.Component {
     }
 
     setTitle = (title) => {
-        const chunks = title.match(/.{1,18}/g);
-        if (chunks != null) {
-            title = chunks.join(" ");
+        const words = title.split(" ");
+        words.map((word, i) => {
+            if (word.length > 18) {
+                const chunks = word.match(/.{1,18}/g);
+                words[i] = chunks.join(" ")
+            }
+        })
+        
+        if (words != null) {
+            title = words.join(" ");
             const data = this.state.data == null ? new FormData() : this.state.data;
             data.delete('title')
             data.append('title', title)

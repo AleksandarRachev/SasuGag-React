@@ -33,9 +33,13 @@ class HomePage extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(GlobalVariables.backendUrl + "/categories", {}).then(data => this.setState({ ...this.state, categories: data.data }));
-
-        this.getPosts(0);
+        if (localStorage.getItem("category") === null) {
+            this.getPosts(0);
+        }
+        else {
+            this.getPostsFiltered(localStorage.getItem("category"));
+            localStorage.removeItem("category")
+        }
     }
 
     getPosts = (page) => {
@@ -105,7 +109,7 @@ class HomePage extends React.Component {
                     {this.renderAddCategory()}
                     <Link className="link" to="/post-add">Add Post</Link>
                     <a href="#" onClick={this.getPosts.bind(this, 0)}>All</a>
-                    {this.state.categories && this.state.categories.map((category, i) =>
+                    {JSON.parse(localStorage.getItem("categories")) && JSON.parse(localStorage.getItem("categories")).map((category, i) =>
                         <a key={i} href="#" onClick={this.getPostsFiltered.bind(this, category.name)}>{category.name}</a>)}
                 </div>
                 <div className="App-header">

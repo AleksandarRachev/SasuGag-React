@@ -19,11 +19,6 @@ import {
   Link
 } from "react-router-dom";
 
-var userId = null;
-if (localStorage.getItem("user") !== null) {
-  userId = JSON.parse(localStorage.getItem("user")).uid;
-}
-
 class App extends React.Component {
 
   componentDidMount() {
@@ -43,7 +38,7 @@ class App extends React.Component {
       return (
         <div>
           <a href="/profile">Profile</a>
-          <a onClick={this.logout.bind(this)} href=".">Logout</a>
+          <a onClick={this.logout} href=".">Logout</a>
         </div>
       );
     }

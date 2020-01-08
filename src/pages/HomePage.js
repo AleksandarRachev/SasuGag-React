@@ -81,7 +81,7 @@ class HomePage extends React.Component {
             console.log((this.state.posts[i] = data.data) == null ? "" : "")), error => {
                 if (error.response.status === 403) {
                     window.location.href = "/login"
-
+                    localStorage.clear();
                 }
             });
     }

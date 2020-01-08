@@ -45,7 +45,7 @@ class AddCategorypage extends React.Component {
                         this.setState({ ...this.state, error: "There was an error: " + error.response.data.message })
                         if (error.response.status === 403) {
                             window.location.href = "/login"
-
+                            localStorage.clear();
                         }
                     }
                     else {
